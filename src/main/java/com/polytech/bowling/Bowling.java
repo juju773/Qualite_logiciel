@@ -42,7 +42,7 @@ public class Bowling {
 
         nom = keyboard.nextLine();
 
-        if (nom.equals("")) {
+        if ("".equals(nom)) {
             keyboard.close();
             return false;
         } else {

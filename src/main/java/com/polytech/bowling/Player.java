@@ -1,5 +1,8 @@
 package com.polytech.bowling;
 
+/**
+ * Classe Player.
+ */
 public class Player {
     private String nom;
     private int points;
