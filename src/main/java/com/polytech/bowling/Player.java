@@ -72,14 +72,10 @@ public class Player {
     /**
      * Détermine le nombre de pointsTotal du joueur ce tour.
      */
-    public void setNombreQuilles() {
-        Scanner keyboard = new Scanner(System.in);
-        int nbQuilles;
-
+    public void setNombreQuilles(Scanner keyboard) {
         System.out.print("Nombre de quilles tombées: ");
 
-        nbQuilles = keyboard.nextInt();
-        keyboard.close();
+        int nbQuilles = keyboard.nextInt();
 
         if (scoreDouble > 0) {
             nbQuilles *= 2;
