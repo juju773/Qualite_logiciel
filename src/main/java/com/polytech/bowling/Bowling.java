@@ -7,9 +7,10 @@ public class Bowling {
 
     private ArrayList<Player> players = new ArrayList<>();
 
-    public ArrayList<Player> getPlayers(){
+    public ArrayList<Player> getPlayers() {
         return players;
     }
+
     public static void main(String[] args) throws Exception {
         System.out.println("Veuillez entrer le nom des joueurs à ajouter.");
         Bowling bowling = new Bowling();

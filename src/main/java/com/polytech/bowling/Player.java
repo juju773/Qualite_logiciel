@@ -13,19 +13,19 @@ public class Player {
         return nom;
     }
 
-    public String getNom(){
+    public String getNom() {
         return nom;
     }
 
-    public void setNom(String nom){
+    public void setNom(String nom) {
         this.nom = nom;
     }
 
-    public String getPoints(){
+    public String getPoints() {
         return nom;
     }
 
-    public void setPoints(int pts){
+    public void setPoints(int pts) {
         this.points = pts;
     }
 }
