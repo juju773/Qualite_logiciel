@@ -28,10 +28,9 @@ public class Bowling {
             System.out.println("\n");
         }
         System.out.println("Voici les joueurs:");
-        for(Player p:bowling.getPlayers()){
+        for (Player p : bowling.getPlayers()) {
             System.out.println(p.getNom());
         }
-        
     }
 
     /**
@@ -53,4 +52,5 @@ public class Bowling {
             return true;
         }
     }
+
 }
