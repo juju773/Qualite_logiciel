@@ -22,6 +22,9 @@ public class Bowling {
         System.out.println(bowling.getPlayers());
     }
 
+    /**
+     * Ajoute un nouveau joueur en entrée à la liste de joueurs
+     */
     public boolean addNewPlayer() {
         Scanner keyboard = new Scanner(System.in);
         String nom;

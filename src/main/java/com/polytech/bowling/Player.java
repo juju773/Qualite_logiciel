@@ -9,22 +9,30 @@ public class Player {
         points = pPoints;
     }
 
-    public String getName() {
-        return nom;
-    }
-
+    /**
+     * Récupère le nom du joueur
+     */
     public String getNom() {
         return nom;
     }
 
+    /**
+     * Définit le nom du joueur
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    /**
+     * Récupère les points du joueur
+     */
     public String getPoints() {
         return nom;
     }
 
+    /**
+     * Définit les points du joueur
+     */
     public void setPoints(int pts) {
         this.points = pts;
     }
