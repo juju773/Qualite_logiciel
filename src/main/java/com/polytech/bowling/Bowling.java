@@ -8,7 +8,16 @@ import java.util.Scanner;
  */
 public class Bowling {
 
+    /**
+    * Empty constructor.
+    */
+    public Bowling() { 
+        //.
+     }
+
     private ArrayList<Player> players = new ArrayList<>();
+
+
 
     /**
      * Récupère la liste de joueurs.
@@ -57,9 +66,13 @@ public class Bowling {
         if ("".equals(nom)) {
             return false;
         } else {
-            players.add(new Player(nom, 0));
-            return true;
+            return addNewPlayer(nom);
         }
+    }
+
+    public boolean addNewPlayer(String name){
+        players.add(new Player(name, 0));
+        return true;
     }
 
 }
