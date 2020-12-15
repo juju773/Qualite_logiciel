@@ -10,28 +10,28 @@ public class Player {
     }
 
     /**
-     * Récupère le nom du joueur
+     * Récupère le nom du joueur.
      */
     public String getNom() {
         return nom;
     }
 
     /**
-     * Définit le nom du joueur
+     * Définit le nom du joueur.
      */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
     /**
-     * Récupère les points du joueur
+     * Récupère les points du joueur.
      */
     public String getPoints() {
         return nom;
     }
 
     /**
-     * Définit les points du joueur
+     * Définit les points du joueur.
      */
     public void setPoints(int pts) {
         this.points = pts;

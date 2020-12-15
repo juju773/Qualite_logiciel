@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Classe Bowling
+ * Classe Bowling.
  */
 public class Bowling {
 
     private ArrayList<Player> players = new ArrayList<>();
 
     /**
-     * Récupère la liste de joueurs
+     * Récupère la liste de joueurs.
      */
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
     /**
-     * Fonction main
+     * Fonction main.
      */
     public static void main(String[] args) throws Exception {
         System.out.println("Veuillez entrer le nom des joueurs à ajouter.");
