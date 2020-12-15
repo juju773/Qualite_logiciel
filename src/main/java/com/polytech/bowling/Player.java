@@ -34,9 +34,9 @@ public class Player {
     }
 
     /**
-     * Définit les points du joueur.
+     * Ajoute une valeur aux points du joueur.
      */
-    public void setPoints(int pts) {
-        this.points = pts;
+    public void addPoints(int pts) {
+        this.points += pts;
     }
 }
