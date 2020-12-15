@@ -12,11 +12,12 @@ public class Player {
     private int scoreDouble;
     private int nbTour;
     private int maxNbTour = maxTours;
-    private int points;
+    private int pointsTotal;
+    private int nbQuillesTour; // Nombre de quilles tombées ce tour
 
     public Player(String pNom, int pPoints) {
         nom = pNom;
-        points = pPoints;
+        pointsTotal = pPoints;
     }
 
     /**
@@ -51,7 +52,7 @@ public class Player {
      * Récupère le nombre de point du joueur.
      */
     public int getPoints() {
-        return points;
+        return pointsTotal;
     }
 
     /**
@@ -61,6 +62,7 @@ public class Player {
         if (nbLancer == 2) {
             nbTour++;
             nbLancer = 0;
+            nbQuillesTour = 0;
         } else {
             nbLancer++;
         }
@@ -68,7 +70,7 @@ public class Player {
     }
 
     /**
-     * Détermine le nombre de points du joueur ce tour.
+     * Détermine le nombre de pointsTotal du joueur ce tour.
      */
     public void setNombreQuilles() {
         Scanner keyboard = new Scanner(System.in);
@@ -84,6 +86,7 @@ public class Player {
             scoreDouble--;
         }
         addPoints(nbQuilles); // On ajoute le nombre de quilles
+        nbQuillesTour+=nbQuilles;
         if (nbQuilles == 10 && nbLancer == 1) { // Strike
             System.out.println("Strike!");
             scoreDouble += 2;
@@ -91,7 +94,7 @@ public class Player {
             if (nbTour == 10) { // Règle du 10e tour
                 maxNbTour += 2;
             }
-        } else if (nbQuilles == 10 && nbLancer == 2) { // Spare
+        } else if (nbQuillesTour == 10 && nbLancer == 2) { // Spare
             System.out.println("Spare!");
             scoreDouble++;
             if (nbTour == 10) { // Règle du 10e tour
@@ -109,9 +112,9 @@ public class Player {
     }
 
     /**
-     * Ajoute une valeur aux points du joueur.
+     * Ajoute une valeur aux pointsTotal du joueur.
      */
     public void addPoints(int pts) {
-        this.points += pts;
+        this.pointsTotal += pts;
     }
 }
