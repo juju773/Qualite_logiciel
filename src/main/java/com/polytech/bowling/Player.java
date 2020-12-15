@@ -6,11 +6,12 @@ import java.util.Scanner;
  * Classe Player.
  */
 public class Player {
+    private static int maxTours=10;
     private String nom;
     private int nbLancer;
-    private int scoreDouble = 0;
+    private int scoreDouble;
     private int nbTour;
-    private int maxNbTour = 10;
+    private int maxNbTour = maxTours;
     private int points;
 
     public Player(String pNom, int pPoints) {
@@ -37,6 +38,13 @@ public class Player {
      */
     public int getNbTour() {
         return nbLancer;
+    }
+
+    /**
+     * Récupère le nombre de tours max du joueur.
+     */
+    public int getNbMaxTour() {
+        return maxNbTour;
     }
 
     /**

@@ -31,6 +31,13 @@ public class Bowling {
         for (Player p : bowling.getPlayers()) {
             System.out.println(p.getNom());
         }
+
+        for (Player p : bowling.getPlayers()) {
+            System.out.println(p.getNom() + ", à toi de jouer!");
+            if (p.getNbTour() <= p.getNbMaxTour()) {
+                p.setNombreQuilles();
+            }
+        }
     }
 
     /**
