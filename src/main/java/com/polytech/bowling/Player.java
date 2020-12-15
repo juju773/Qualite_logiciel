@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Classe Player.
  */
 public class Player {
-    private static int maxTours=10;
+    private static int maxTours = 10;
     private String nom;
     private int nbLancer;
     private int scoreDouble;
@@ -37,7 +37,7 @@ public class Player {
      * Récupère le nombre de tours du joueur.
      */
     public int getNbTour() {
-        return nbLancer;
+        return nbTour;
     }
 
     /**
@@ -45,6 +45,13 @@ public class Player {
      */
     public int getNbMaxTour() {
         return maxNbTour;
+    }
+
+    /**
+     * Récupère le nombre de point du joueur.
+     */
+    public int getPoints() {
+        return points;
     }
 
     /**
@@ -99,13 +106,6 @@ public class Player {
      */
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    /**
-     * Récupère les points du joueur.
-     */
-    public String getPoints() {
-        return nom;
     }
 
     /**
