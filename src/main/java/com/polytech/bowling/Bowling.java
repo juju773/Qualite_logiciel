@@ -47,7 +47,7 @@ public class Bowling {
      * Ajoute un nouveau joueur en entrée à la liste de joueurs.
      */
     public boolean addNewPlayer(Scanner keyboard) {
-        
+
         String nom;
 
         System.out.print("Nom du joueur: ");
@@ -55,7 +55,6 @@ public class Bowling {
         nom = keyboard.nextLine();
 
         if ("".equals(nom)) {
-            // keyboard.close();
             return false;
         } else {
             players.add(new Player(nom, 0));

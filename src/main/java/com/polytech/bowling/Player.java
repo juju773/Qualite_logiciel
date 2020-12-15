@@ -77,12 +77,18 @@ public class Player {
 
         int nbQuilles = keyboard.nextInt();
 
+        if (nbQuilles > 10) {
+            nbQuilles = 10;
+        } else if (nbQuilles < 0) {
+            nbQuilles = 0;
+        }
+
         if (scoreDouble > 0) {
             nbQuilles *= 2;
             scoreDouble--;
         }
         addPoints(nbQuilles); // On ajoute le nombre de quilles
-        nbQuillesTour+=nbQuilles;
+        nbQuillesTour += nbQuilles;
         if (nbQuilles == 10 && nbLancer == 1) { // Strike
             System.out.println("Strike!");
             scoreDouble += 2;
