@@ -1,8 +1,8 @@
 package com.polytech.bowling;
 
 public class Player {
-    public String nom;
-    public int points;
+    private String nom;
+    private int points;
 
     public Player(String pNom, int pPoints) {
         nom = pNom;
@@ -11,5 +11,21 @@ public class Player {
 
     public String getName() {
         return nom;
+    }
+
+    public String getNom(){
+        return nom;
+    }
+
+    public void setNom(String nom){
+        this.nom = nom;
+    }
+
+    public String getPoints(){
+        return nom;
+    }
+
+    public void setPoints(int pts){
+        this.points = pts;
     }
 }

@@ -5,8 +5,11 @@ import java.util.Scanner;
 
 public class Bowling {
 
-    ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players = new ArrayList<>();
 
+    public ArrayList<Player> getPlayers(){
+        return players;
+    }
     public static void main(String[] args) throws Exception {
         System.out.println("Veuillez entrer le nom des joueurs à ajouter.");
         Bowling bowling = new Bowling();
@@ -15,7 +18,7 @@ public class Bowling {
             System.out.println("\n");
         }
         System.out.println("Voici les joueurs:");
-        System.out.println(bowling.players);
+        System.out.println(bowling.getPlayers());
     }
 
     public boolean addNewPlayer() {
