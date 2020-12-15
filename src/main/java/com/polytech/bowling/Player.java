@@ -1,3 +1,5 @@
+package com.polytech.bowling;
+
 public class Player {
     public String nom;
     public int points;
