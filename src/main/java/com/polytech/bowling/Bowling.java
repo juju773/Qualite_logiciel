@@ -1,6 +1,5 @@
 package com.polytech.bowling;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,8 +10,8 @@ public class Bowling {
     public static void main(String[] args) throws Exception {
         System.out.println("Veuillez entrer le nom des joueurs à ajouter.");
         Bowling bowling = new Bowling();
-        
-        while(bowling.addNewPlayer()){
+
+        while (bowling.addNewPlayer()) {
             System.out.println("\n");
         }
         System.out.println("Voici les joueurs:");
@@ -27,11 +26,11 @@ public class Bowling {
 
         nom = keyboard.nextLine();
 
-        if(nom.equals("")){
+        if (nom.equals("")) {
             keyboard.close();
             return false;
-        }else{
-            players.add(new Player(nom,0));
+        } else {
+            players.add(new Player(nom, 0));
             return true;
         }
     }
