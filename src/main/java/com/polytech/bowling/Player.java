@@ -1,5 +1,7 @@
 package com.polytech.bowling;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -14,6 +16,9 @@ public class Player {
     private int pointsTotal;
     private int nbQuillesTour; // Nombre de quilles tombées ce tour
     private int nbStrike;
+    private List<Strike> listStrike;
+    private List<Spare> listSpare;
+    private Object object;
 
     public Player(String pNom, int pPoints) {
         nom = pNom;
@@ -23,7 +28,9 @@ public class Player {
         nbLancer = 1;
         nbQuillesTour = 0;
         nbStrike = 0;
-        scoreDouble = 0;
+        scoreDouble = 1;
+        listStrike = new ArrayList<Strike>();
+        listSpare = new ArrayList<Spare>();
     }
 
     /**
@@ -111,10 +118,26 @@ public class Player {
         }
 
         int pointsTour = nbQuillesLancer;
-        if (scoreDouble > 0) {
-            pointsTour *= scoreDouble;
-            scoreDouble -= nbStrike;
+        if(!listStrike.isEmpty()){
+            scoreDouble = 1;
+            for(int i = 0; i < listStrike.size(); i++){
+                if (((Strike) listStrike.get(i)).getTTL() > 0){
+                    scoreDouble += 1;
+                }
+                ((Strike) listStrike.get(i)).decrement();
+            } 
         }
+        if(!listSpare.isEmpty()){
+            for(int i = 0; i < listSpare.size(); i++){
+                if (((Spare) listSpare.get(i)).getTTL() > 0){
+                    scoreDouble += 1;
+                }
+                ((Spare) listSpare.get(i)).decrement();
+            } 
+        }
+        pointsTour *= scoreDouble;
+        
+
         
         addPoints(pointsTour); // On ajoute le nombre de quilles
 
@@ -136,8 +159,8 @@ public class Player {
 
     public void strike() {
         System.out.println("Strike!");
-        nbStrike += 1;
-        scoreDouble += 2;
+        Strike s = new Strike();
+        listStrike.add(s);
         nbLancer = 2; // Pour passer directement au prochain tour
         if (nbTour == 10) { // Règle du 10e tour
             maxNbTour += 2;
@@ -146,7 +169,8 @@ public class Player {
 
     public void spare() {
         System.out.println("Spare!");
-        scoreDouble++;
+        Spare s = new Spare();
+        listSpare.add(s);
         if (nbTour == 10) { // Règle du 10e tour
             maxNbTour++;
         }
