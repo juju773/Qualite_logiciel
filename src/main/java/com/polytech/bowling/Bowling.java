@@ -95,4 +95,13 @@ public class Bowling {
         }
     }
 
+    public boolean removePlayer(){
+        players.remove(players.size() - 1);
+        return true;
+    }
+
+    public ArrayList<Player> getListPlayers(){
+        return players;
+    }
+
 }
