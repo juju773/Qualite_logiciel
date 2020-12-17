@@ -89,7 +89,7 @@ public class Bowling {
         if ("".equals(name)) {
             return false;
         } else {
-            Player p = new Player(name, 0);
+            Player p = new Player(name);
             players.add(p);
             return true;
         }

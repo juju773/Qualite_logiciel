@@ -18,9 +18,9 @@ public class Player {
     private List<Strike> listStrike;
     private List<Spare> listSpare;
 
-    public Player(String pNom, int pPoints) {
+    public Player(String pNom) {
         nom = pNom;
-        pointsTotal = pPoints;
+        pointsTotal = 0;
         nbTour = 0;
         maxNbTour = 10;
         nbLancer = 1;

@@ -26,15 +26,15 @@ class AppTest {
     }
     @Test
     void testNbQuilles(){
-        Player p = new Player("test",0);
+        Player p = new Player("test");
         p.calculatePoint(4);
         assertEquals(4, p.getNbQuillesTour());
     }
 
     @Test
     void testCalculatePoints(){
-        Player p = new Player("test",0); 
-        Player p2 = new Player("test",0); 
+        Player p = new Player("test"); 
+        Player p2 = new Player("test"); 
         //Test des strike en chaines
         assertEquals(10, p.calculatePoint(10));
         p.calculatePoint(10);

@@ -10,6 +10,8 @@ public class launch extends JFrame implements ActionListener{
 
 
     List<JButton> boutons = new ArrayList<JButton>();
+    Bowling bowling = new Bowling();
+    Player p = new Player("test",0);
 
    public launch() {
       super("Bowling !");
