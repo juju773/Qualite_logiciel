@@ -72,11 +72,8 @@ public class Player {
     /**
      * Détermine le nombre de pointsTotal du joueur ce tour.
      */
-    public void setNombreQuilles(Scanner keyboard) {
-        System.out.print("Nombre de quilles tombées: ");
-
-        int nbQuilles = keyboard.nextInt();
-
+    public void setNombreQuilles(int nbQuilles) {
+        
         if (nbQuilles > 10) {
             nbQuilles = 10;
         } else if (nbQuilles < 0) {
@@ -106,34 +103,8 @@ public class Player {
         incrementLancer();
     }
 
-    public void setNombreQuilles(int nbQuilles) {
-        if (nbQuilles > 10) {
-            nbQuilles = 10;
-        } else if (nbQuilles < 0) {
-            nbQuilles = 0;
-        }
-
-        if (scoreDouble > 0) {
-            nbQuilles *= 2;
-            scoreDouble--;
-        }
-        addPoints(nbQuilles); // On ajoute le nombre de quilles
-        nbQuillesTour += nbQuilles;
-        if (nbQuilles == 10 && nbLancer == 1) { // Strike
-            System.out.println("Strike!");
-            scoreDouble += 2;
-            nbLancer = 2; // Pour passer directement au prochain tour
-            if (nbTour == 10) { // Règle du 10e tour
-                maxNbTour += 2;
-            }
-        } else if (nbQuillesTour == 10 && nbLancer == 2) { // Spare
-            System.out.println("Spare!");
-            scoreDouble++;
-            if (nbTour == 10) { // Règle du 10e tour
-                maxNbTour++;
-            }
-        }
-        incrementLancer();
+    public int getNbQuillesTour(){
+        return nbQuillesTour;
     }
 
     /**

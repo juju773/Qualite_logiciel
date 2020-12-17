@@ -35,9 +35,14 @@ public class Bowling {
         System.out.println("Veuillez entrer le nom des joueurs à ajouter.");
         Bowling bowling = new Bowling();
 
-        while (bowling.addNewPlayer(keyboard)) {
+        String nom;boolean ok;
+        do{
+            System.out.print("Nom du joueur: ");
+            nom = keyboard.nextLine();
+            ok = bowling.addNewPlayer(nom);
             System.out.println("\n");
-        }
+        }while(ok);
+
         System.out.println("Voici les joueurs:");
         for (Player p : bowling.getPlayers()) {
             System.out.println(p.getNom());
@@ -46,7 +51,9 @@ public class Bowling {
         for (Player p : bowling.getPlayers()) {
             System.out.println(p.getNom() + ", à toi de jouer!");
             if (p.getNbTour() <= p.getNbMaxTour()) {
-                p.setNombreQuilles(keyboard);
+                System.out.print("Nombre de quilles tombées: ");
+                int nbQuilles = keyboard.nextInt();
+                p.setNombreQuilles(nbQuilles);
             }
         }
         keyboard.close();
@@ -55,24 +62,14 @@ public class Bowling {
     /**
      * Ajoute un nouveau joueur en entrée à la liste de joueurs.
      */
-    public boolean addNewPlayer(Scanner keyboard) {
-
-        String nom;
-
-        System.out.print("Nom du joueur: ");
-
-        nom = keyboard.nextLine();
-
-        if ("".equals(nom)) {
+    public boolean addNewPlayer(String name) {
+        if ("".equals(name)) {
             return false;
         } else {
-            return addNewPlayer(nom);
+            Player p = new Player(name,0);
+            players.add(p);
+            return true;
         }
-    }
-
-    public boolean addNewPlayer(String name){
-        players.add(new Player(name, 0));
-        return true;
     }
 
 }

@@ -24,6 +24,12 @@ class AppTest {
         assertEquals("Lucas", bowling.getPlayers().get(0).getNom());
         assertEquals("Julien", bowling.getPlayers().get(1).getNom());
     }
+    @Test
+    void testNbQuilles(){
+        Player p = new Player("test",0);
+        p.setNombreQuilles(4);
+        assertEquals(4, p.getNbQuillesTour());
+    }
 
 
 
