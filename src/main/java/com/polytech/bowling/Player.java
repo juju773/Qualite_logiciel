@@ -76,7 +76,7 @@ public class Player {
                     System.out.println("Erreur: Veuillez renseigner une somme comprise entre 0 et 10");
             }while (nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0);
             
-            setNombreQuilles(nbQuillesLancer);
+            calculatePoint(nbQuillesLancer);
             System.out.println(nom + " a " + getPoints() + " points.");
             if (nbQuillesLancer != 10 && nbLancer == 2)
                 joue(sc);
@@ -87,7 +87,7 @@ public class Player {
     /**
      * Incrémente le nombre de lancers du joueur.
      */
-    public int incrementLancer() {
+    public void incrementLancer() {
         if (nbLancer == 2) {
             nbTour++;
             nbLancer = 1;
@@ -95,13 +95,12 @@ public class Player {
         } else {
             nbLancer++;
         }
-        return nbLancer;
     }
 
     /**
      * Détermine le nombre de pointsTotal du joueur ce tour.
      */
-    public void setNombreQuilles(int nbQuillesLancer) {
+    public void calculatePoint(int nbQuillesLancer) {
         if (nbQuillesLancer > 10) {
             nbQuillesLancer = 10;
         } else if (nbQuillesLancer < 0) {
@@ -114,6 +113,10 @@ public class Player {
             scoreDouble--;
         }
         addPoints(pointsTour); // On ajoute le nombre de quilles
+
+        
+        //Traitement Spare Strike 
+        //-------------------------------------
         nbQuillesTour += nbQuillesLancer;
         if (nbQuillesLancer == 10 && nbLancer == 1) { // Strike
             strike();
