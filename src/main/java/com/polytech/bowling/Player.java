@@ -1,23 +1,23 @@
 package com.polytech.bowling;
 
-import java.util.Scanner;
-
 /**
  * Classe Player.
  */
 public class Player {
-    private static int maxTours = 10;
     private String nom;
     private int nbLancer;
     private int scoreDouble;
     private int nbTour;
-    private int maxNbTour = maxTours;
+    private int maxNbTour;
     private int pointsTotal;
     private int nbQuillesTour; // Nombre de quilles tombées ce tour
 
     public Player(String pNom, int pPoints) {
         nom = pNom;
         pointsTotal = pPoints;
+        nbTour = 0;
+        maxNbTour = 10;
+        nbLancer = 1;
     }
 
     /**
