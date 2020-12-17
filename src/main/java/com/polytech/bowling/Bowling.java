@@ -26,6 +26,15 @@ public class Bowling {
         return players;
     }
 
+    public ArrayList<Player> getPlayersThatCanPlay(int tour) {
+        ArrayList<Player> alivePlayers = new ArrayList<Player>();
+        for(Player p : players){
+            if(p.canPlay(tour))
+                alivePlayers.add(p);
+        }
+        return alivePlayers;
+    }
+
     /**
      * Fonction main.
      */
@@ -35,7 +44,8 @@ public class Bowling {
         System.out.println("Veuillez entrer le nom des joueurs à ajouter.");
         Bowling bowling = new Bowling();
 
-        String nom;boolean ok;
+        String nom;
+        boolean ok;
         do{
             System.out.print("Nom du joueur: ");
             nom = keyboard.nextLine();
@@ -47,15 +57,31 @@ public class Bowling {
         for (Player p : bowling.getPlayers()) {
             System.out.println(p.getNom());
         }
+        System.out.print("\n");
 
-        for (Player p : bowling.getPlayers()) {
-            System.out.println(p.getNom() + ", à toi de jouer!");
-            if (p.getNbTour() <= p.getNbMaxTour()) {
-                System.out.print("Nombre de quilles tombées: ");
-                int nbQuilles = keyboard.nextInt();
-                p.setNombreQuilles(nbQuilles);
+        boolean doBreak = false;
+        int tour = 0;
+        while(true){
+            tour++;
+            for (Player p : bowling.getPlayersThatCanPlay(tour)) {
+                if(bowling.getPlayersThatCanPlay(tour).isEmpty())
+                    doBreak = true;
+                else{
+                    p.joue(keyboard);
+                    p.joue(keyboard);
+                }
             }
+            if(doBreak)
+                break;
         }
+
+        int position=1;
+        for (Player p : bowling.getPlayers()){
+            System.out.println(position+". "+p.getNom()+" - "+p.getPoints()+"pts");
+            position++;
+        }
+
+
         keyboard.close();
     }
 
