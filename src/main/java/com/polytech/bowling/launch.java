@@ -3,6 +3,7 @@ package com.polytech.bowling;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,37 +17,45 @@ public class launch extends JFrame implements ActionListener{
     JButton addPlayer = new JButton("+");
     JButton removePlayer = new JButton("-");
 
-   public launch() {
-    super("Bowling !");
-
-    WindowListener l = new WindowAdapter() {
-        public void windowClosing(WindowEvent e){
-            System.exit(0);
-        }
-    };
-
-    addWindowListener(l);
-    setSize(800,600);
-    setVisible(true);
-
     //Init composants de la vue
-    JPanel panel = new JPanel(); 
+    JPanel panelBoutonsQuilles = new JPanel(); 
+    JPanel panelPrincipal = new JPanel(new BorderLayout());
+    JPanel panelBoutonAddRemove = new JPanel();
 
-    panel.add(addPlayer);
-    panel.add(removePlayer);
+    List<JLabel> listLabelJoueurs = new ArrayList<JLabel>();
+
+   public launch() {
+        super("Bowling !");
+
+        WindowListener l = new WindowAdapter() {
+            public void windowClosing(WindowEvent e){
+                System.exit(0);
+            }
+        };
+
+        addWindowListener(l);
+        setSize(800,600);
+        setVisible(true);
+
+        panelBoutonAddRemove.add(addPlayer);
+        panelBoutonAddRemove.add(removePlayer);
 
 
-    //Listeners
-    for(int i = 0; i < 11; i++){
-        JButton b = new JButton("" + i);
-        boutons.add(b);
-        b.addActionListener(this);
-        panel.add(b);
-    }
-    addPlayer.addActionListener(this);
-    removePlayer.addActionListener(this);
+        //Listeners
+        for(int i = 0; i < 11; i++){
+            JButton b = new JButton("" + i);
+            boutons.add(b);
+            b.addActionListener(this);
+            panelBoutonsQuilles.add(b);
+        }
+        addPlayer.addActionListener(this);
+        removePlayer.addActionListener(this);
 
-    this.setContentPane(panel);
+
+        
+        this.setContentPane(panelPrincipal);
+        panelPrincipal.add(panelBoutonAddRemove, BorderLayout.WEST);
+        panelPrincipal.add(panelBoutonsQuilles, BorderLayout.CENTER);
 }
 
    public static void main(String [] args){
@@ -68,12 +77,20 @@ public class launch extends JFrame implements ActionListener{
             }
         }
         
+        //LES LABELS NE SAFFICHENT PAS ENCORE
         if(e.getSource().equals(addPlayer)){
+            System.out.println("add player");
             bowling.addNewPlayer("joueur " + bowling.getListPlayers().size() + 1);
+            JLabel l = new JLabel("joueur " + bowling.getListPlayers().size() + 1);
+            l.setVisible(true);
+            panelBoutonsQuilles.add(l);
+            listLabelJoueurs.add(l);
         }
         if(e.getSource().equals(removePlayer)){
+            System.out.println("remove player");
             bowling.removePlayer();
+            panelBoutonsQuilles.remove(listLabelJoueurs.get(listLabelJoueurs.size() - 1));
+            listLabelJoueurs.remove(listLabelJoueurs.size() - 1);
         }
-
     }
 }
