@@ -58,8 +58,8 @@ public class Player {
         return pointsTotal;
     }
 
-    public boolean canPlay(int tour) {
-        if (getNbTour() <= tour)
+    public boolean canPlay() {
+        if (nbTour < maxNbTour)
             return true;
         return false;
     }
