@@ -55,6 +55,26 @@ public class Player {
         return pointsTotal;
     }
 
+    public boolean canPlay(int tour){
+        if (getNbTour() <= tour)
+            return true;
+        return false;
+    }
+
+
+    public boolean joue(Scanner sc){
+        System.out.println(getNom() + ", à toi de jouer!");
+        if (getNbTour() <= getNbMaxTour()) {
+            System.out.print("Nombre de quilles tombées: ");
+            int nbQuilles = sc.nextInt();
+            setNombreQuilles(nbQuilles);
+            System.out.println(getNom()+" a "+getPoints()+" points.");
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /**
      * Incrémente le nombre de lancers du joueur.
      */
@@ -73,7 +93,6 @@ public class Player {
      * Détermine le nombre de pointsTotal du joueur ce tour.
      */
     public void setNombreQuilles(int nbQuilles) {
-        
         if (nbQuilles > 10) {
             nbQuilles = 10;
         } else if (nbQuilles < 0) {
