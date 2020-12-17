@@ -1,9 +1,12 @@
-package com.polytech.bowling;
+package test.java.com.polytech.bowling;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import com.polytech.bowling.Bowling;
+import com.polytech.bowling.Player;
 
 /**
  * Unit test for simple App.
@@ -50,4 +53,5 @@ class AppTest {
         p2.calculatePoint(5); //2eme spare
         assertEquals(25,p2.getPoints());
     }
+
 }
