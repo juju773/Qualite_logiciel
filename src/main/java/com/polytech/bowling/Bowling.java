@@ -57,20 +57,11 @@ public class Bowling {
         }
         System.out.print("\n");
 
-        boolean doBreak = false;
-        int tour = 0;
-        while (true) {
-            tour++;
+        for(int tour = 0; tour < 10; tour++){
             for (Player p : bowling.getPlayersThatCanPlay(tour)) {
-                if (bowling.getPlayersThatCanPlay(tour).isEmpty())
-                    doBreak = true;
-                else {
-                    System.out.println("Tour n°"+tour);
-                    p.joue(keyboard);
-                }
+                System.out.println("Tour n°"+tour);
+                p.joue(keyboard);
             }
-            if (doBreak)
-                break;
         }
 
         int position = 1;
