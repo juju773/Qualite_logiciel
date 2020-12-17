@@ -1,5 +1,6 @@
 package com.polytech.bowling;
 
+import java.util.Scanner;
 /**
  * Classe Player.
  */
