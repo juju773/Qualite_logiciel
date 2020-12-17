@@ -29,10 +29,10 @@ public class Bowling {
      * @param tour
      * @return
      */
-    public ArrayList<Player> getPlayersThatCanPlay(int tour) {
+    public ArrayList<Player> getPlayersThatCanPlay() {
         ArrayList<Player> alivePlayers = new ArrayList<Player>();
         for (Player p : players) {
-            if (p.canPlay(tour))
+            if (p.canPlay())
                 alivePlayers.add(p);
         }
         return alivePlayers;
@@ -62,11 +62,15 @@ public class Bowling {
         }
         System.out.print("\n");
 
-        for(int tour = 0; tour < 10; tour++){
-            for (Player p : bowling.getPlayersThatCanPlay(tour)) {
-                System.out.println("Tour n°"+tour);
-                p.joue(keyboard);
+        int tour = 0;
+        while (true) {
+            tour++;
+            for (Player p : bowling.getPlayersThatCanPlay()) {
+                    System.out.println("Tour n°"+tour);
+                    p.joue(keyboard);
             }
+            if (bowling.getPlayersThatCanPlay().isEmpty())
+                break;
         }
 
         int position = 1;
