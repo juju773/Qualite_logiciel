@@ -35,7 +35,8 @@ public class Bowling {
         System.out.println("Veuillez entrer le nom des joueurs à ajouter.");
         Bowling bowling = new Bowling();
 
-        String nom;boolean ok;
+        String nom;
+        boolean ok;
         do{
             System.out.print("Nom du joueur: ");
             nom = keyboard.nextLine();
