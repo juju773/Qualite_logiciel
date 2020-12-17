@@ -13,6 +13,7 @@ public class Player {
     private int maxNbTour;
     private int pointsTotal;
     private int nbQuillesTour; // Nombre de quilles tombées ce tour
+    private int nbStrike;
 
     public Player(String pNom, int pPoints) {
         nom = pNom;
@@ -21,6 +22,8 @@ public class Player {
         maxNbTour = 10;
         nbLancer = 1;
         nbQuillesTour = 0;
+        nbStrike = 0;
+        scoreDouble = 0;
     }
 
     /**
@@ -109,9 +112,10 @@ public class Player {
 
         int pointsTour = nbQuillesLancer;
         if (scoreDouble > 0) {
-            pointsTour *= 2;
-            scoreDouble--;
+            pointsTour *= scoreDouble;
+            scoreDouble -= nbStrike;
         }
+        
         addPoints(pointsTour); // On ajoute le nombre de quilles
 
         
@@ -132,6 +136,7 @@ public class Player {
 
     public void strike() {
         System.out.println("Strike!");
+        nbStrike += 1;
         scoreDouble += 2;
         nbLancer = 2; // Pour passer directement au prochain tour
         if (nbTour == 10) { // Règle du 10e tour
