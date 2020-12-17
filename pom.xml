@@ -106,7 +106,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>com.polytech.bowling</mainClass>
+              <mainClass>com.polytech.bowling.Bowling</mainClass>
             </manifest>
           </archive>
         </configuration>
