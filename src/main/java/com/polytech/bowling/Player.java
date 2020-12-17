@@ -15,10 +15,8 @@ public class Player {
     private int maxNbTour;
     private int pointsTotal;
     private int nbQuillesTour; // Nombre de quilles tombées ce tour
-    private int nbStrike;
     private List<Strike> listStrike;
     private List<Spare> listSpare;
-    private Object object;
 
     public Player(String pNom, int pPoints) {
         nom = pNom;
@@ -27,7 +25,6 @@ public class Player {
         maxNbTour = 10;
         nbLancer = 1;
         nbQuillesTour = 0;
-        nbStrike = 0;
         scoreDouble = 1;
         listStrike = new ArrayList<Strike>();
         listSpare = new ArrayList<Spare>();
@@ -110,7 +107,7 @@ public class Player {
     /**
      * Détermine le nombre de pointsTotal du joueur ce tour.
      */
-    public void calculatePoint(int nbQuillesLancer) {
+    public int calculatePoint(int nbQuillesLancer) {
         if (nbQuillesLancer > 10) {
             nbQuillesLancer = 10;
         } else if (nbQuillesLancer < 0) {
@@ -118,21 +115,21 @@ public class Player {
         }
 
         int pointsTour = nbQuillesLancer;
+        scoreDouble = 1;
         if(!listStrike.isEmpty()){
-            scoreDouble = 1;
             for(int i = 0; i < listStrike.size(); i++){
                 if (((Strike) listStrike.get(i)).getTTL() > 0){
                     scoreDouble += 1;
+                    ((Strike) listStrike.get(i)).decrement();
                 }
-                ((Strike) listStrike.get(i)).decrement();
             } 
         }
         if(!listSpare.isEmpty()){
             for(int i = 0; i < listSpare.size(); i++){
                 if (((Spare) listSpare.get(i)).getTTL() > 0){
                     scoreDouble += 1;
+                    ((Spare) listSpare.get(i)).decrement();
                 }
-                ((Spare) listSpare.get(i)).decrement();
             } 
         }
         pointsTour *= scoreDouble;
@@ -151,6 +148,7 @@ public class Player {
             spare();
         }
         incrementLancer();
+        return pointsTour;
     }
 
     public int getNbQuillesTour() {
