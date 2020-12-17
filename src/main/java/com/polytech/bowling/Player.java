@@ -118,11 +118,7 @@ public class Player {
         if (nbQuillesLancer == 10 && nbLancer == 1) { // Strike
             strike();
         } else if (nbQuillesTour == 10 && nbLancer == 2) { // Spare
-            System.out.println("Spare!");
-            scoreDouble++;
-            if (nbTour == 10) { // Règle du 10e tour
-                maxNbTour++;
-            }
+            spare();
         }
         incrementLancer();
     }
@@ -137,6 +133,14 @@ public class Player {
         nbLancer = 2; // Pour passer directement au prochain tour
         if (nbTour == 10) { // Règle du 10e tour
             maxNbTour += 2;
+        }
+    }
+
+    public void spare() {
+        System.out.println("Spare!");
+        scoreDouble++;
+        if (nbTour == 10) { // Règle du 10e tour
+            maxNbTour++;
         }
     }
 
