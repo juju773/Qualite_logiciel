@@ -9,15 +9,13 @@ import java.util.Scanner;
 public class Bowling {
 
     /**
-    * Empty constructor.
-    */
-    public Bowling() { 
-        //.
-     }
+     * Empty constructor.
+     */
+    public Bowling() {
+        // .
+    }
 
     private ArrayList<Player> players = new ArrayList<>();
-
-
 
     /**
      * Récupère la liste de joueurs.
@@ -28,8 +26,8 @@ public class Bowling {
 
     public ArrayList<Player> getPlayersThatCanPlay(int tour) {
         ArrayList<Player> alivePlayers = new ArrayList<Player>();
-        for(Player p : players){
-            if(p.canPlay(tour))
+        for (Player p : players) {
+            if (p.canPlay(tour))
                 alivePlayers.add(p);
         }
         return alivePlayers;
@@ -46,12 +44,12 @@ public class Bowling {
 
         String nom;
         boolean ok;
-        do{
+        do {
             System.out.print("Nom du joueur: ");
             nom = keyboard.nextLine();
             ok = bowling.addNewPlayer(nom);
             System.out.println("\n");
-        }while(ok);
+        } while (ok);
 
         System.out.println("Voici les joueurs:");
         for (Player p : bowling.getPlayers()) {
@@ -61,26 +59,25 @@ public class Bowling {
 
         boolean doBreak = false;
         int tour = 0;
-        while(true){
+        while (true) {
             tour++;
             for (Player p : bowling.getPlayersThatCanPlay(tour)) {
-                if(bowling.getPlayersThatCanPlay(tour).isEmpty())
+                if (bowling.getPlayersThatCanPlay(tour).isEmpty())
                     doBreak = true;
-                else{
-                    p.joue(keyboard);
+                else {
+                    System.out.println("Tour n°"+tour);
                     p.joue(keyboard);
                 }
             }
-            if(doBreak)
+            if (doBreak)
                 break;
         }
 
-        int position=1;
-        for (Player p : bowling.getPlayers()){
-            System.out.println(position+". "+p.getNom()+" - "+p.getPoints()+"pts");
+        int position = 1;
+        for (Player p : bowling.getPlayers()) {
+            System.out.println(position + ". " + p.getNom() + " - " + p.getPoints() + "pts");
             position++;
         }
-
 
         keyboard.close();
     }
@@ -92,7 +89,7 @@ public class Bowling {
         if ("".equals(name)) {
             return false;
         } else {
-            Player p = new Player(name,0);
+            Player p = new Player(name, 0);
             players.add(p);
             return true;
         }

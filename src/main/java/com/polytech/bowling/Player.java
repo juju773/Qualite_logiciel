@@ -1,6 +1,7 @@
 package com.polytech.bowling;
 
 import java.util.Scanner;
+
 /**
  * Classe Player.
  */
@@ -19,6 +20,7 @@ public class Player {
         nbTour = 0;
         maxNbTour = 10;
         nbLancer = 1;
+        nbQuillesTour = 0;
     }
 
     /**
@@ -56,24 +58,30 @@ public class Player {
         return pointsTotal;
     }
 
-    public boolean canPlay(int tour){
+    public boolean canPlay(int tour) {
         if (getNbTour() <= tour)
             return true;
         return false;
     }
 
-
-    public boolean joue(Scanner sc){
-        System.out.println(getNom() + ", à toi de jouer!");
+    public void joue(Scanner sc) {
+        System.out.println(nom + ", à toi de jouer!");
         if (getNbTour() <= getNbMaxTour()) {
-            System.out.print("Nombre de quilles tombées: ");
-            int nbQuilles = sc.nextInt();
-            setNombreQuilles(nbQuilles);
-            System.out.println(getNom()+" a "+getPoints()+" points.");
-            return true;
-        }else{
-            return false;
+            int nbQuillesLancer=0;
+
+            do{
+                System.out.print("Nombre de quilles tombées: ");
+                nbQuillesLancer = sc.nextInt();
+                if(nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0)
+                    System.out.println("Erreur: Veuillez renseigner une somme comprise entre 0 et 10");
+            }while (nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0);
+            
+            setNombreQuilles(nbQuillesLancer);
+            System.out.println(nom + " a " + getPoints() + " points.");
+            if (nbQuillesLancer != 10 && nbLancer == 2)
+                joue(sc);
         }
+        System.out.println("\n");
     }
 
     /**
@@ -82,7 +90,7 @@ public class Player {
     public int incrementLancer() {
         if (nbLancer == 2) {
             nbTour++;
-            nbLancer = 0;
+            nbLancer = 1;
             nbQuillesTour = 0;
         } else {
             nbLancer++;
@@ -93,26 +101,22 @@ public class Player {
     /**
      * Détermine le nombre de pointsTotal du joueur ce tour.
      */
-    public void setNombreQuilles(int nbQuilles) {
-        if (nbQuilles > 10) {
-            nbQuilles = 10;
-        } else if (nbQuilles < 0) {
-            nbQuilles = 0;
+    public void setNombreQuilles(int nbQuillesLancer) {
+        if (nbQuillesLancer > 10) {
+            nbQuillesLancer = 10;
+        } else if (nbQuillesLancer < 0) {
+            nbQuillesLancer = 0;
         }
 
+        int pointsTour = nbQuillesLancer;
         if (scoreDouble > 0) {
-            nbQuilles *= 2;
+            pointsTour *= 2;
             scoreDouble--;
         }
-        addPoints(nbQuilles); // On ajoute le nombre de quilles
-        nbQuillesTour += nbQuilles;
-        if (nbQuilles == 10 && nbLancer == 1) { // Strike
-            System.out.println("Strike!");
-            scoreDouble += 2;
-            nbLancer = 2; // Pour passer directement au prochain tour
-            if (nbTour == 10) { // Règle du 10e tour
-                maxNbTour += 2;
-            }
+        addPoints(pointsTour); // On ajoute le nombre de quilles
+        nbQuillesTour += nbQuillesLancer;
+        if (nbQuillesLancer == 10 && nbLancer == 1) { // Strike
+            strike();
         } else if (nbQuillesTour == 10 && nbLancer == 2) { // Spare
             System.out.println("Spare!");
             scoreDouble++;
@@ -123,8 +127,17 @@ public class Player {
         incrementLancer();
     }
 
-    public int getNbQuillesTour(){
+    public int getNbQuillesTour() {
         return nbQuillesTour;
+    }
+
+    public void strike() {
+        System.out.println("Strike!");
+        scoreDouble += 2;
+        nbLancer = 2; // Pour passer directement au prochain tour
+        if (nbTour == 10) { // Règle du 10e tour
+            maxNbTour += 2;
+        }
     }
 
     /**

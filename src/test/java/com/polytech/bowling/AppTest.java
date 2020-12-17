@@ -31,8 +31,4 @@ class AppTest {
         assertEquals(4, p.getNbQuillesTour());
     }
 
-
-
-
-
 }
