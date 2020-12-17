@@ -24,6 +24,11 @@ public class Bowling {
         return players;
     }
 
+    /**
+     * Player qui n'ont pas fini le tour
+     * @param tour
+     * @return
+     */
     public ArrayList<Player> getPlayersThatCanPlay(int tour) {
         ArrayList<Player> alivePlayers = new ArrayList<Player>();
         for (Player p : players) {

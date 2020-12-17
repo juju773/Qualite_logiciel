@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Created-By: S.K. D.C. J.S. L.P.
+Main-Class: com.polytech.bowling
