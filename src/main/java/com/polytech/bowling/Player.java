@@ -66,9 +66,7 @@ public class Player {
     }
 
     public boolean canPlay() {
-        if (nbTour < maxNbTour)
-            return true;
-        return false;
+        return nbTour < maxNbTour;
     }
 
     public void joue(Scanner sc) {
@@ -108,30 +106,21 @@ public class Player {
      * Détermine le nombre de pointsTotal du joueur ce tour.
      */
     public int calculatePoint(int nbQuillesLancer) {
-        if (nbQuillesLancer > 10) {
-            nbQuillesLancer = 10;
-        } else if (nbQuillesLancer < 0) {
-            nbQuillesLancer = 0;
-        }
 
         int pointsTour = nbQuillesLancer;
         scoreDouble = 1;
-        if(!listStrike.isEmpty()){
-            for(int i = 0; i < listStrike.size(); i++){
-                if (((Strike) listStrike.get(i)).getTTL() > 0){
-                    scoreDouble += 1;
-                    ((Strike) listStrike.get(i)).decrement();
-                }
-            } 
-        }
-        if(!listSpare.isEmpty()){
-            for(int i = 0; i < listSpare.size(); i++){
-                if (((Spare) listSpare.get(i)).getTTL() > 0){
-                    scoreDouble += 1;
-                    ((Spare) listSpare.get(i)).decrement();
-                }
-            } 
-        }
+        for(int i = 0; i < listStrike.size(); i++){
+            if (((Strike) listStrike.get(i)).getTTL() > 0){
+                scoreDouble += 1;
+                ((Strike) listStrike.get(i)).decrement();
+            }
+        } 
+        for(int i = 0; i < listSpare.size(); i++){
+            if (((Spare) listSpare.get(i)).getTTL() > 0){
+                scoreDouble += 1;
+                ((Spare) listSpare.get(i)).decrement();
+            }
+        } 
         pointsTour *= scoreDouble;
         
 

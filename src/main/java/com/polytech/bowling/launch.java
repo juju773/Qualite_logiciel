@@ -80,8 +80,8 @@ public class launch extends JFrame implements ActionListener{
         //LES LABELS NE SAFFICHENT PAS ENCORE
         if(e.getSource().equals(addPlayer)){
             System.out.println("add player");
-            bowling.addNewPlayer("joueur " + bowling.getListPlayers().size() + 1);
-            JLabel l = new JLabel("joueur " + bowling.getListPlayers().size() + 1);
+            bowling.addNewPlayer("joueur " + bowling.getPlayers().size() + 1);
+            JLabel l = new JLabel("joueur " + bowling.getPlayers().size() + 1);
             l.setVisible(true);
             panelBoutonsQuilles.add(l);
             listLabelJoueurs.add(l);
