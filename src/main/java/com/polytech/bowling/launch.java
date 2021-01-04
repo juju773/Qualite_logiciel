@@ -21,8 +21,13 @@ public class launch extends JFrame implements ActionListener{
     JPanel panelBoutonsQuilles = new JPanel(); 
     JPanel panelPrincipal = new JPanel(new BorderLayout());
     JPanel panelBoutonAddRemove = new JPanel();
+    JPanel panelLabelJoueurCourant = new JPanel();
 
-    List<JLabel> listLabelJoueurs = new ArrayList<JLabel>();
+
+    private int nbJoueurs = 0;
+    JLabel labelNbJoueurs = new JLabel("Nombre de joueurs : 0");
+
+    JLabel currentPlayer = new JLabel("");
 
    public launch() {
         super("Bowling !");
@@ -39,35 +44,37 @@ public class launch extends JFrame implements ActionListener{
 
         panelBoutonAddRemove.add(addPlayer);
         panelBoutonAddRemove.add(removePlayer);
+        panelBoutonAddRemove.add(labelNbJoueurs);
+
+        panelLabelJoueurCourant.add(currentPlayer);
 
 
         //Listeners
         for(int i = 0; i < 11; i++){
             JButton b = new JButton("" + i);
+            b.setSize(50, 50);
             boutons.add(b);
             b.addActionListener(this);
             panelBoutonsQuilles.add(b);
+            b.setEnabled(false);
         }
         addPlayer.addActionListener(this);
         removePlayer.addActionListener(this);
-
+        removePlayer.setEnabled(false);
 
         
         this.setContentPane(panelPrincipal);
         panelPrincipal.add(panelBoutonAddRemove, BorderLayout.WEST);
-        panelPrincipal.add(panelBoutonsQuilles, BorderLayout.CENTER);
+        panelPrincipal.add(panelBoutonsQuilles, BorderLayout.NORTH);
+        panelPrincipal.add(panelLabelJoueurCourant, BorderLayout.CENTER);
 }
-
-   public static void main(String [] args){
-      new launch();
-   }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for(int i = 0; i < boutons.size() - 1; i++){
+        for(int i = 0; i < boutons.size(); i++){
             if(e.getSource().equals(boutons.get(i))){
-                
-
+                addPlayer.setEnabled(false);
+                removePlayer.setEnabled(false);
                 int nbQuillesTombees = Integer.valueOf(boutons.get(i).getText());
                 p.calculatePoint(nbQuillesTombees);
                 //les boutons deviennent invisible pour que la somme soit inférieur ou égale à 10
@@ -77,20 +84,42 @@ public class launch extends JFrame implements ActionListener{
             }
         }
         
-        //LES LABELS NE SAFFICHENT PAS ENCORE
+        //GESTION DES AJOUTS ET SUPPRESSION DES UTILISATEURS
         if(e.getSource().equals(addPlayer)){
             System.out.println("add player");
             bowling.addNewPlayer("joueur " + bowling.getPlayers().size() + 1);
-            JLabel l = new JLabel("joueur " + bowling.getPlayers().size() + 1);
-            l.setVisible(true);
-            panelBoutonsQuilles.add(l);
-            listLabelJoueurs.add(l);
+            nbJoueurs += 1;
+            labelNbJoueurs.setText("Nombre de joueurs : " + nbJoueurs);
+
+            removePlayer.setEnabled(true);
+
+            if(nbJoueurs > 0){
+                for(int i = 0; i < boutons.size(); i++){
+                    boutons.get(i).setEnabled(true);
+                }
+            }
+
+            currentPlayer.setText("Joueur 1, à toi de jouer !");
         }
         if(e.getSource().equals(removePlayer)){
             System.out.println("remove player");
             bowling.removePlayer();
-            panelBoutonsQuilles.remove(listLabelJoueurs.get(listLabelJoueurs.size() - 1));
-            listLabelJoueurs.remove(listLabelJoueurs.size() - 1);
+            nbJoueurs -= 1;
+            labelNbJoueurs.setText("Nombre de joueurs : " + nbJoueurs);
+
+            if(nbJoueurs <=0 ){
+                for(int i = 0; i < boutons.size(); i++){
+                    boutons.get(i).setEnabled(false);
+                }
+                if(nbJoueurs ==0){
+                    removePlayer.setEnabled(false);
+                }
+            }
         }
     }
+
+
+    public static void main(String [] args){
+        new launch();
+     }
 }
