@@ -72,22 +72,29 @@ public class Player {
             addPoints(points); // On ajoute le nombre de quilles
             printPoints();
 
-            if(nbTour == 10 && nbQuillesLancer == 10 && nbLancer == 1){
-                addPoints(calculatePoint(lancer(sc)));
-                printPoints();
-                addPoints(calculatePoint(lancer(sc)));
-                printPoints();
-            }
-            else if(nbTour == 10 && nbQuillesLancer == 10 && nbLancer == 2){
-                addPoints(calculatePoint(lancer(sc)));
-                printPoints();
-            }
-
+            int nbQuillesLancer2 = -1;
+            //2e Lancer
             if (nbQuillesLancer != 10 && nbLancer == 1){
+                nbQuillesLancer2 = lancer(sc);
+                addPoints(calculatePoint(nbQuillesLancer2));
+                printPoints();
+            }
+            //Règle 10e lancer Strike
+            if(nbTour == 9 && nbQuillesLancer == 10 && nbLancer != 2){
+                nbQuillesTour = 0;
+                nbLancer = 0;
+                addPoints(calculatePoint(lancer(sc)));
+                printPoints();
                 addPoints(calculatePoint(lancer(sc)));
                 printPoints();
             }
-                
+            //Règle 10e lancer Spare
+            else if(nbTour == 9 && (nbQuillesLancer + nbQuillesLancer2) == 10 && nbLancer == 2){
+                nbQuillesTour = 0;
+                nbLancer = 0;
+                addPoints(calculatePoint(lancer(sc)));
+                printPoints();
+            }
             
         }
         nbTour++;
@@ -155,19 +162,15 @@ public class Player {
         System.out.println("Strike!");
         Strike s = new Strike();
         listStrike.add(s);
-        nbLancer = 2; // Pour passer directement au prochain tour
-        if (nbTour == 10) { // Règle du 10e tour
-            maxNbTour += 2;
-        }
+        //Spécifique au 10e tour
+        nbLancer = 0;
+        nbQuillesTour = 0;
     }
 
     public void spare() {
         System.out.println("Spare!");
         Spare s = new Spare();
         listSpare.add(s);
-        if (nbTour == 10) { // Règle du 10e tour
-            maxNbTour++;
-        }
     }
 
     /**
