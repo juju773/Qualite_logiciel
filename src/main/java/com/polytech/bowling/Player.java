@@ -23,7 +23,7 @@ public class Player {
         pointsTotal = 0;
         nbTour = 0;
         maxNbTour = 10;
-        nbLancer = 1;
+        nbLancer = 0;
         nbQuillesTour = 0;
         scoreDouble = 1;
         listStrike = new ArrayList<Strike>();
@@ -50,14 +50,6 @@ public class Player {
     public int getNbTour() {
         return nbTour;
     }
-
-    /**
-     * Récupère le nombre de tours max du joueur.
-     */
-    public int getNbMaxTour() {
-        return maxNbTour;
-    }
-
     /**
      * Récupère le nombre de point du joueur.
      */
@@ -69,37 +61,57 @@ public class Player {
         return nbTour < maxNbTour;
     }
 
+    /**
+     * Joue avec la console
+     * @param sc
+     */
     public void joue(Scanner sc) {
-        System.out.println(nom + ", à toi de jouer!");
-        if (getNbTour() <= getNbMaxTour()) {
-            int nbQuillesLancer=0;
+        if (getNbTour() <= maxNbTour) {
+            int nbQuillesLancer = lancer(sc);
+            int points = calculatePoint(nbQuillesLancer);
+            addPoints(points); // On ajoute le nombre de quilles
+            printPoints();
 
-            do{
-                System.out.print("Nombre de quilles tombées: ");
-                nbQuillesLancer = sc.nextInt();
-                if(nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0)
-                    System.out.println("Erreur: Veuillez renseigner une somme comprise entre 0 et 10");
-            }while (nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0);
+            if(nbTour == 10 && nbQuillesLancer == 10 && nbLancer == 1){
+                addPoints(calculatePoint(lancer(sc)));
+                printPoints();
+                addPoints(calculatePoint(lancer(sc)));
+                printPoints();
+            }
+            else if(nbTour == 10 && nbQuillesLancer == 10 && nbLancer == 2){
+                addPoints(calculatePoint(lancer(sc)));
+                printPoints();
+            }
+
+            if (nbQuillesLancer != 10 && nbLancer == 1){
+                addPoints(calculatePoint(lancer(sc)));
+                printPoints();
+            }
+                
             
-            calculatePoint(nbQuillesLancer);
-            System.out.println(nom + " a " + getPoints() + " points.");
-            if (nbQuillesLancer != 10 && nbLancer == 2)
-                joue(sc);
         }
+        nbTour++;
+        nbQuillesTour = 0;
+        nbLancer = 0;
         System.out.println("\n");
     }
 
     /**
-     * Incrémente le nombre de lancers du joueur.
-     */
-    public void incrementLancer() {
-        if (nbLancer == 2) {
-            nbTour++;
-            nbLancer = 1;
-            nbQuillesTour = 0;
-        } else {
-            nbLancer++;
-        }
+     * Lancer
+     * @param sc
+     * @return
+    */
+    public int lancer(Scanner sc){
+        System.out.println(nom + ", à toi de jouer!");
+        int nbQuillesLancer=0;
+        do{
+            System.out.print("Nombre de quilles tombées: ");
+            nbQuillesLancer = sc.nextInt();
+            if(nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0)
+                System.out.println("Erreur: Veuillez renseigner une somme comprise entre 0 et 10");
+        }while (nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0);
+        nbLancer++;
+        return nbQuillesLancer;
     }
 
     /**
@@ -122,12 +134,7 @@ public class Player {
             }
         } 
         pointsTour *= scoreDouble;
-        
-
-        
-        addPoints(pointsTour); // On ajoute le nombre de quilles
-
-        
+                
         //Traitement Spare Strike 
         //-------------------------------------
         nbQuillesTour += nbQuillesLancer;
@@ -136,7 +143,7 @@ public class Player {
         } else if (nbQuillesTour == 10 && nbLancer == 2) { // Spare
             spare();
         }
-        incrementLancer();
+        
         return pointsTour;
     }
 
@@ -175,5 +182,9 @@ public class Player {
      */
     public void addPoints(int pts) {
         this.pointsTotal += pts;
+    }
+
+    public void printPoints(){
+        System.out.println(nom + " a " + pointsTotal + " points.");
     }
 }
