@@ -68,7 +68,7 @@ public class Player {
     public void joue(Scanner sc) {
         if (getNbTour() <= maxNbTour) {
             int nbQuillesLancer = lancer(sc);
-            int points = calculatePoint(nbQuillesLancer);
+            int points = calculatePoint(nbQuillesLancer, nbLancer);
             addPoints(points); // On ajoute le nombre de quilles
             printPoints();
 
@@ -76,23 +76,23 @@ public class Player {
             //2e Lancer
             if (nbQuillesLancer != 10 && nbLancer == 1){
                 nbQuillesLancer2 = lancer(sc);
-                addPoints(calculatePoint(nbQuillesLancer2));
+                addPoints(calculatePoint(nbQuillesLancer2, nbLancer));
                 printPoints();
             }
             //Règle 10e lancer Strike
             if(nbTour == 9 && nbQuillesLancer == 10 && nbLancer != 2){
                 nbQuillesTour = 0;
                 nbLancer = 0;
-                addPoints(calculatePoint(lancer(sc)));
+                addPoints(calculatePoint(lancer(sc), nbLancer));
                 printPoints();
-                addPoints(calculatePoint(lancer(sc)));
+                addPoints(calculatePoint(lancer(sc), nbLancer));
                 printPoints();
             }
             //Règle 10e lancer Spare
             else if(nbTour == 9 && (nbQuillesLancer + nbQuillesLancer2) == 10 && nbLancer == 2){
                 nbQuillesTour = 0;
                 nbLancer = 0;
-                addPoints(calculatePoint(lancer(sc)));
+                addPoints(calculatePoint(lancer(sc), nbLancer));
                 printPoints();
             }
             
@@ -124,7 +124,7 @@ public class Player {
     /**
      * Détermine le nombre de pointsTotal du joueur ce tour.
      */
-    public int calculatePoint(int nbQuillesLancer) {
+    public int calculatePoint(int nbQuillesLancer, int numLancer) {
 
         int pointsTour = nbQuillesLancer;
         scoreDouble = 1;
@@ -145,9 +145,9 @@ public class Player {
         //Traitement Spare Strike 
         //-------------------------------------
         nbQuillesTour += nbQuillesLancer;
-        if (nbQuillesLancer == 10 && nbLancer == 1) { // Strike
+        if (nbQuillesLancer == 10 && numLancer == 1) { // Strike
             strike();
-        } else if (nbQuillesTour == 10 && nbLancer == 2) { // Spare
+        } else if (nbQuillesTour == 10 && numLancer == 2) { // Spare
             spare();
         }
         
