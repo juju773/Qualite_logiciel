@@ -76,7 +76,11 @@ public class launch extends JFrame implements ActionListener{
                 addPlayer.setEnabled(false);
                 removePlayer.setEnabled(false);
                 int nbQuillesTombees = Integer.valueOf(boutons.get(i).getText());
-                p.calculatePoint(nbQuillesTombees);
+                
+                //TODO WARNING NBTOUR !!!!!!!!!!!!!!!!!!!!!!!!!
+                p.calculatePoint(nbQuillesTombees, 1); 
+                //------------------------------------------------------
+                
                 //les boutons deviennent invisible pour que la somme soit inférieur ou égale à 10
                 for(int j = boutons.size() - 1; j > boutons.size() - i - 1; j--){
                     boutons.get(j).setVisible(false);
