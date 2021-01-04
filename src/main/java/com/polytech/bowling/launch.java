@@ -70,7 +70,8 @@ public class launch extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         for(int i = 0; i < boutons.size(); i++){
             if(e.getSource().equals(boutons.get(i))){
-                
+                addPlayer.setEnabled(false);
+                removePlayer.setEnabled(false);
                 int nbQuillesTombees = Integer.valueOf(boutons.get(i).getText());
                 p.calculatePoint(nbQuillesTombees);
                 //les boutons deviennent invisible pour que la somme soit inférieur ou égale à 10
@@ -83,7 +84,7 @@ public class launch extends JFrame implements ActionListener{
         //LES LABELS NE SAFFICHENT PAS ENCORE
         if(e.getSource().equals(addPlayer)){
             System.out.println("add player");
-            bowling.addNewPlayer("joueur " + bowling.getListPlayers().size() + 1);
+            bowling.addNewPlayer("joueur " + bowling.getPlayers().size() + 1);
             nbJoueurs += 1;
             labelNbJoueurs.setText("Nombre de joueurs : " + nbJoueurs);
 

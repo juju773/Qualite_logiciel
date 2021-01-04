@@ -100,8 +100,4 @@ public class Bowling {
         return true;
     }
 
-    public ArrayList<Player> getListPlayers(){
-        return players;
-    }
-
 }
