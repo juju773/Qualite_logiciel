@@ -21,9 +21,13 @@ public class launch extends JFrame implements ActionListener{
     JPanel panelBoutonsQuilles = new JPanel(); 
     JPanel panelPrincipal = new JPanel(new BorderLayout());
     JPanel panelBoutonAddRemove = new JPanel();
+    JPanel panelLabelJoueurCourant = new JPanel();
+
 
     private int nbJoueurs = 0;
     JLabel labelNbJoueurs = new JLabel("Nombre de joueurs : 0");
+
+    JLabel currentPlayer = new JLabel("");
 
    public launch() {
         super("Bowling !");
@@ -42,10 +46,13 @@ public class launch extends JFrame implements ActionListener{
         panelBoutonAddRemove.add(removePlayer);
         panelBoutonAddRemove.add(labelNbJoueurs);
 
+        panelLabelJoueurCourant.add(currentPlayer);
+
 
         //Listeners
         for(int i = 0; i < 11; i++){
             JButton b = new JButton("" + i);
+            b.setSize(50, 50);
             boutons.add(b);
             b.addActionListener(this);
             panelBoutonsQuilles.add(b);
@@ -55,16 +62,12 @@ public class launch extends JFrame implements ActionListener{
         removePlayer.addActionListener(this);
         removePlayer.setEnabled(false);
 
-
         
         this.setContentPane(panelPrincipal);
         panelPrincipal.add(panelBoutonAddRemove, BorderLayout.WEST);
-        panelPrincipal.add(panelBoutonsQuilles, BorderLayout.CENTER);
+        panelPrincipal.add(panelBoutonsQuilles, BorderLayout.NORTH);
+        panelPrincipal.add(panelLabelJoueurCourant, BorderLayout.CENTER);
 }
-
-   public static void main(String [] args){
-      new launch();
-   }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -81,7 +84,7 @@ public class launch extends JFrame implements ActionListener{
             }
         }
         
-        //LES LABELS NE SAFFICHENT PAS ENCORE
+        //GESTION DES AJOUTS ET SUPPRESSION DES UTILISATEURS
         if(e.getSource().equals(addPlayer)){
             System.out.println("add player");
             bowling.addNewPlayer("joueur " + bowling.getPlayers().size() + 1);
@@ -95,6 +98,8 @@ public class launch extends JFrame implements ActionListener{
                     boutons.get(i).setEnabled(true);
                 }
             }
+
+            currentPlayer.setText("Joueur 1, à toi de jouer !");
         }
         if(e.getSource().equals(removePlayer)){
             System.out.println("remove player");
@@ -112,4 +117,9 @@ public class launch extends JFrame implements ActionListener{
             }
         }
     }
+
+
+    public static void main(String [] args){
+        new launch();
+     }
 }
