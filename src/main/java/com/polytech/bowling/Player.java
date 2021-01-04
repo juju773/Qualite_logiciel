@@ -37,8 +37,8 @@ public class Player {
         nbLancer = 1;
         nbQuillesTour = 0;
         scoreDouble = 1;
-        listStrike = new ArrayList<Strike>();
-        listSpare = new ArrayList<Spare>();
+        listStrike.clear();
+        listSpare.clear();
     }
 
     /**
