@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.polytech.bowling.AppTest" time="0.111" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.polytech.bowling.AppTest" time="0.083" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -18,7 +18,7 @@
     <property name="user.country" value="FR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\steve\AppData\Local\Temp\surefire8381207606818474527\surefirebooter5356469441648980718.jar C:\Users\steve\AppData\Local\Temp\surefire8381207606818474527 2021-01-04T14-26-19_666-jvmRun1 surefire805310975637542251tmp surefire_0107806758725090209tmp"/>
+    <property name="sun.java.command" value="C:\Users\steve\AppData\Local\Temp\surefire2923248095082263143\surefirebooter7702258611146361068.jar C:\Users\steve\AppData\Local\Temp\surefire2923248095082263143 2021-01-04T14-58-16_074-jvmRun1 surefire6666742038424525376tmp surefire_08081502344586035979tmp"/>
     <property name="surefire.test.class.path" value="C:\Users\steve\Documents\Polytech\JAVA\Qualite_logiciel\target\test-classes;C:\Users\steve\Documents\Polytech\JAVA\Qualite_logiciel\target\classes;C:\Users\steve\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\steve\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\steve\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\steve\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\steve\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\steve\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\steve"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\steve\AppData\Local\Temp\surefire8381207606818474527\surefirebooter5356469441648980718.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\steve\AppData\Local\Temp\surefire2923248095082263143\surefirebooter7702258611146361068.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\lib\resources.jar;C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\lib\rt.jar;C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\lib\sunrsasign.jar;C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\lib\jsse.jar;C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\lib\jce.jar;C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\lib\charsets.jar;C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\lib\jfr.jar;C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -60,7 +60,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="testCalculatePoints" classname="com.polytech.bowling.AppTest" time="0.058"/>
-  <testcase name="testAddPlayer" classname="com.polytech.bowling.AppTest" time="0.01"/>
-  <testcase name="testNbQuilles" classname="com.polytech.bowling.AppTest" time="0.002"/>
+  <testcase name="testCalculatePoints" classname="com.polytech.bowling.AppTest" time="0.051"/>
+  <testcase name="testAddPlayer" classname="com.polytech.bowling.AppTest" time="0.004"/>
+  <testcase name="testNbQuilles" classname="com.polytech.bowling.AppTest" time="0.001"/>
 </testsuite>
