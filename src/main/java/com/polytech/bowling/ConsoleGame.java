@@ -24,7 +24,7 @@ public class ConsoleGame {
 
         int position = 1;
         for (Player p : bowling.getPlayers()) {
-            System.out.println(position + ". " + p.getNom() + " - " + p.getPoints() + "pts");
+            System.out.println(position + ". " + p.getNom() + " - " + p.getScore().getScoreTotal() + "pts");
             position++;
             p.reset();
         }
