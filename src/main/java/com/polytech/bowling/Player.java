@@ -12,7 +12,6 @@ public class Player {
     private int nbLancer;
     private int nbTour;
     private int maxNbTour;
-    private int pointsTotal;
     private int nbQuillesTour; // Nombre de quilles tombées ce tour
     private List<Strike> listStrike;
     private List<Spare> listSpare;
@@ -20,7 +19,6 @@ public class Player {
 
     public Player(String pNom) {
         nom = pNom;
-        pointsTotal = 0;
         nbTour = 0;
         maxNbTour = 10;
         nbLancer = 0;
@@ -31,7 +29,6 @@ public class Player {
     }
 
     public void reset(){
-        pointsTotal = 0;
         nbTour = 0;
         maxNbTour = 10;
         nbLancer = 1;
