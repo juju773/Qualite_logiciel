@@ -22,12 +22,16 @@ public class launch extends JFrame implements ActionListener{
     JPanel panelPrincipal = new JPanel(new BorderLayout());
     JPanel panelBoutonAddRemove = new JPanel();
     JPanel panelLabelJoueurCourant = new JPanel();
+    JPanel panelScores = new JPanel();
+
+    List<JLabel> listLabelScores = new ArrayList<JLabel>();
 
 
     private int nbJoueurs = 0;
     JLabel labelNbJoueurs = new JLabel("Nombre de joueurs : 0");
 
-    JLabel currentPlayer = new JLabel("");
+    JLabel labelCurrentPlayer = new JLabel("");
+    int currentPlayer = 0;
 
    public launch() {
         super("Bowling !");
@@ -46,7 +50,7 @@ public class launch extends JFrame implements ActionListener{
         panelBoutonAddRemove.add(removePlayer);
         panelBoutonAddRemove.add(labelNbJoueurs);
 
-        panelLabelJoueurCourant.add(currentPlayer);
+        panelLabelJoueurCourant.add(labelCurrentPlayer);
 
 
         //Listeners
@@ -75,15 +79,33 @@ public class launch extends JFrame implements ActionListener{
             if(e.getSource().equals(boutons.get(i))){
                 addPlayer.setEnabled(false);
                 removePlayer.setEnabled(false);
+
                 int nbQuillesTombees = Integer.valueOf(boutons.get(i).getText());
+                bowling.getPlayers().get(currentPlayer).addPoints(bowling.getPlayers().get(currentPlayer).calculatePoint(nbQuillesTombees, 1)); 
+                bowling.getPlayers().get(currentPlayer).incrementNbLancer();
+                if(nbQuillesTombees == 10){
+                    bowling.getPlayers().get(currentPlayer).incrementNbLancer();
+                }
+                else{
+                    //les boutons deviennent invisible pour que la somme soit inférieur ou égale à 10 (on enleve les quilles tombées)
+                    for(int j = boutons.size() - 1; j > boutons.size() - i - 1; j--){
+                        boutons.get(j).setVisible(false);
+                    }
+                }
                 
-                //TODO WARNING NBTOUR !!!!!!!!!!!!!!!!!!!!!!!!!
-                p.calculatePoint(nbQuillesTombees, 1); 
-                //------------------------------------------------------
-                
-                //les boutons deviennent invisible pour que la somme soit inférieur ou égale à 10
-                for(int j = boutons.size() - 1; j > boutons.size() - i - 1; j--){
-                    boutons.get(j).setVisible(false);
+                //CHANGEMENT DE JOUEUR
+                if(bowling.getPlayers().get(currentPlayer).getNbLancer() == 2){
+                    bowling.getPlayers().get(currentPlayer).resetNbLancer();
+                    bowling.getPlayers().get(currentPlayer).incrementNbTour();
+                    System.out.println(bowling.getPlayers().get(currentPlayer).getNbTour());
+
+                    currentPlayer = (currentPlayer + 1)%bowling.getPlayers().size(); //joueur suivant
+                    labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
+                    nbQuillesTombees = 0;
+                    //tous les boutons sont de nouveaux visibles (on remet les quilles droites)
+                    for(int j = 0; j < boutons.size(); j++){
+                        boutons.get(j).setVisible(true);
+                    }
                 }
             }
         }
@@ -91,9 +113,13 @@ public class launch extends JFrame implements ActionListener{
         //GESTION DES AJOUTS ET SUPPRESSION DES UTILISATEURS
         if(e.getSource().equals(addPlayer)){
             System.out.println("add player");
-            bowling.addNewPlayer("joueur " + bowling.getPlayers().size() + 1);
+            bowling.addNewPlayer("joueur " + (bowling.getPlayers().size() + 1));
             nbJoueurs += 1;
             labelNbJoueurs.setText("Nombre de joueurs : " + nbJoueurs);
+
+            //LABEL SCORES
+            JLabel l = new JLabel("Joueur " + nbJoueurs);
+            listLabelScores.add(l);
 
             removePlayer.setEnabled(true);
 
@@ -103,11 +129,12 @@ public class launch extends JFrame implements ActionListener{
                 }
             }
 
-            currentPlayer.setText("Joueur 1, à toi de jouer !");
+            labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
         }
         if(e.getSource().equals(removePlayer)){
             System.out.println("remove player");
             bowling.removePlayer();
+            listLabelScores.remove(nbJoueurs);
             nbJoueurs -= 1;
             labelNbJoueurs.setText("Nombre de joueurs : " + nbJoueurs);
 
