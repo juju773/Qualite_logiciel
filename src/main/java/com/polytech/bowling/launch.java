@@ -79,13 +79,13 @@ public class launch extends JFrame implements ActionListener{
 
 
                 int nbQuillesTombees = Integer.valueOf(boutons.get(i).getText());
-                bowling.getPlayers().get(currentPlayer).calculatePoint(nbQuillesTombees, 1); 
+                bowling.getPlayers().get(currentPlayer).addPoints(bowling.getPlayers().get(currentPlayer).calculatePoint(nbQuillesTombees, 1)); 
                 bowling.getPlayers().get(currentPlayer).incrementNbLancer();
                 if(nbQuillesTombees == 10){
                     bowling.getPlayers().get(currentPlayer).incrementNbLancer();
                 }
                 else{
-                    //les boutons deviennent invisible pour que la somme soit inférieur ou égale à 10
+                    //les boutons deviennent invisible pour que la somme soit inférieur ou égale à 10 (on enleve les quilles tombées)
                     for(int j = boutons.size() - 1; j > boutons.size() - i - 1; j--){
                         boutons.get(j).setVisible(false);
                     }
@@ -93,9 +93,13 @@ public class launch extends JFrame implements ActionListener{
                 
                 //CHANGEMENT DE JOUEUR
                 if(bowling.getPlayers().get(currentPlayer).getNbLancer() == 2){
-                    currentPlayer = (currentPlayer + 1)%bowling.getPlayers().size();
+                    bowling.getPlayers().get(currentPlayer).resetNbLancer();
+                    bowling.getPlayers().get(currentPlayer).incrementNbTour();
+
+                    currentPlayer = (currentPlayer + 1)%bowling.getPlayers().size(); //joueur suivant
                     labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
                     nbQuillesTombees = 0;
+                    //tous les boutons sont de nouveaux visibles (on remet les quilles droites)
                     for(int j = 0; j < boutons.size(); j++){
                         boutons.get(j).setVisible(true);
                     }

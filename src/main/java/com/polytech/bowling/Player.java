@@ -64,12 +64,18 @@ public class Player {
     public void incrementNbLancer() {
         nbLancer++;
     }
+    public void resetNbLancer(){
+        nbLancer = 0;
+    }
 
     /**
      * Récupère le nombre de tours du joueur.
      */
     public int getNbTour() {
         return nbTour;
+    }
+    public void incrementNbTour(){
+        nbTour++;
     }
     /**
      * Récupère le nombre de point du joueur.
