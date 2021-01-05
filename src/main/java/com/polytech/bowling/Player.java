@@ -140,7 +140,7 @@ public class Player {
     }
 
     /**
-     * Détermine le nombre de pointsTotal du joueur ce tour.
+     * Détermine le nombre de points total à ce tour du joueur ce tour.
      */
     public int calculatePoint(int nbQuillesLancer, int numLancer) {
 
