@@ -4,6 +4,7 @@ package com.polytech.bowling;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class launch extends JFrame implements ActionListener{
     JPanel panelPrincipal = new JPanel(new BorderLayout());
     JPanel panelBoutonAddRemove = new JPanel();
     JPanel panelLabelJoueurCourant = new JPanel();
-    JPanel panelScores = new JPanel();
+    JPanel panelScores = new JPanel(new GridLayout());
 
     List<JLabel> listLabelScores = new ArrayList<JLabel>();
 
@@ -70,7 +71,8 @@ public class launch extends JFrame implements ActionListener{
         this.setContentPane(panelPrincipal);
         panelPrincipal.add(panelBoutonAddRemove, BorderLayout.WEST);
         panelPrincipal.add(panelBoutonsQuilles, BorderLayout.NORTH);
-        panelPrincipal.add(panelLabelJoueurCourant, BorderLayout.CENTER);
+        panelPrincipal.add(panelLabelJoueurCourant, BorderLayout.EAST);
+        panelPrincipal.add(panelScores,BorderLayout.CENTER);
 }
 
     @Override
@@ -120,6 +122,7 @@ public class launch extends JFrame implements ActionListener{
             //LABEL SCORES
             JLabel l = new JLabel("Joueur " + nbJoueurs);
             listLabelScores.add(l);
+            panelScores.add(l,0,nbJoueurs - 1);
 
             removePlayer.setEnabled(true);
 
@@ -134,7 +137,9 @@ public class launch extends JFrame implements ActionListener{
         if(e.getSource().equals(removePlayer)){
             System.out.println("remove player");
             bowling.removePlayer();
-            listLabelScores.remove(nbJoueurs);
+            listLabelScores.get(listLabelScores.size() - 1).setVisible(false);
+            panelScores.remove(listLabelScores.get(listLabelScores.size() - 1));
+            listLabelScores.remove(listLabelScores.size() - 1);
             nbJoueurs -= 1;
             labelNbJoueurs.setText("Nombre de joueurs : " + nbJoueurs);
 
