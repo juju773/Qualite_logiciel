@@ -1,7 +1,7 @@
 package com.polytech.bowling;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 /**
  * Classe Bowling.
@@ -40,82 +40,10 @@ public class Bowling {
         return alivePlayers;
     }
 
-    /**
-     * Fonction main.
-     */
-
-    public static void getPlayersForGame(ArrayList<Player> players, Scanner keyboard){
+    public static Bowling getPlayersForGame(ArrayList<Player> players){
         Bowling bowling = new Bowling();
         bowling.players = players;
-
-        game(keyboard,bowling);
-    }
-
-    public static void getPlayersForGame(Scanner keyboard){
-        System.out.println("Veuillez entrer le nom des joueurs à ajouter.");
-        Bowling bowling = new Bowling();
-        String nom;
-        boolean ok;
-        do {
-            System.out.print("Nom du joueur: ");
-            nom = keyboard.nextLine();
-            ok = bowling.addNewPlayer(nom);
-            System.out.println("\n");
-        } while (ok);
-
-        game(keyboard,bowling);
-    }
-
-    public static void game(Scanner keyboard,Bowling bowling){
-        System.out.println("Voici les joueurs:");
-        for (Player p : bowling.getPlayers()) {
-            System.out.println(p.getNom());
-        }
-        System.out.print("\n");
-
-        int tour = 0;
-        while (true) {
-            tour++;
-            for (Player p : bowling.getPlayersThatCanPlay()) {
-                    System.out.println("Tour n°"+tour);
-                    p.joue(keyboard);
-            }
-            if (bowling.getPlayersThatCanPlay().isEmpty())
-                break;
-        }
-
-        int position = 1;
-        for (Player p : bowling.getPlayers()) {
-            System.out.println(position + ". " + p.getNom() + " - " + p.getPoints() + "pts");
-            position++;
-            p.reset();
-        }
-
-        int choix;
-        do {
-            System.out.print("Voulez vous rejouer ?"+"\n1 - Oui avec les mêmes joueurs\n2 - Oui avec de nouveaux joueurs\n3 - Non\n> ");
-            choix = keyboard.nextInt();
-            switch(choix){
-                case 1:
-                    getPlayersForGame(bowling.getPlayers(),keyboard);
-                break;
-                case 2:
-                    keyboard.nextLine();
-                    getPlayersForGame(keyboard);
-                break;
-                case 3:
-                    System.out.println("Bien joué, au revoir!");
-                break;
-            }
-            System.out.println("\n");
-        } while (choix<1 || choix>3);
-        
-    }
-
-    public static void main(String[] args) throws Exception {
-        Scanner keyboard = new Scanner(System.in);
-        getPlayersForGame(keyboard);
-        keyboard.close();
+        return bowling;
     }
 
     /**
