@@ -51,4 +51,10 @@ class AppTest {
         p2.addPoints(p2.calculatePoint(5,2)); //2eme spare
         assertEquals(25,p2.getPoints());
     }
+
+    @Test
+
+    void testRelancerPartie(){
+        
+    }
 }

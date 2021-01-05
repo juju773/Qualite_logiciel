@@ -72,6 +72,8 @@ public class ConsoleGame {
                 case 3:
                     System.out.println("Bien joué, au revoir!");
                 break;
+                default:
+                break;
             }
             System.out.println("\n");
         } while (choix<1 || choix>3);
