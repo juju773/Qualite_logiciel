@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Player {
     private String nom;
     private int nbLancer;
-    private int scoreDouble;
     private int nbTour;
     private int maxNbTour;
     private int pointsTotal;
@@ -26,7 +25,6 @@ public class Player {
         maxNbTour = 10;
         nbLancer = 0;
         nbQuillesTour = 0;
-        scoreDouble = 1;
         listStrike = new ArrayList<Strike>();
         listSpare = new ArrayList<Spare>();
         score = new Score();
@@ -38,7 +36,6 @@ public class Player {
         maxNbTour = 10;
         nbLancer = 1;
         nbQuillesTour = 0;
-        scoreDouble = 1;
         listStrike.clear();
         listSpare.clear();
     }
@@ -191,69 +188,10 @@ public class Player {
     }
 
     /**
-     * Détermine le nombre de points total à ce tour du joueur ce tour.
-     */
-    public int calculatePoint(int nbQuillesLancer, int numLancer) {
-
-        int pointsTour = nbQuillesLancer;
-        scoreDouble = 1;
-        for(int i = 0; i < listStrike.size(); i++){
-            if (((Strike) listStrike.get(i)).getTTL() > 0){
-                scoreDouble += 1;
-                ((Strike) listStrike.get(i)).decrement();
-            }
-        } 
-        for(int i = 0; i < listSpare.size(); i++){
-            if (((Spare) listSpare.get(i)).getTTL() > 0){
-                scoreDouble += 1;
-                ((Spare) listSpare.get(i)).decrement();
-            }
-        } 
-        pointsTour *= scoreDouble;
-                
-        //Traitement Spare Strike 
-        //-------------------------------------
-        nbQuillesTour += nbQuillesLancer;
-        if (nbQuillesLancer == 10 && numLancer == 1) { // Strike
-            strike();
-        } else if (nbQuillesTour == 10 && numLancer == 2) { // Spare
-            spare();
-        }
-        
-        return pointsTour;
-    }
-
-    public int getNbQuillesTour() {
-        return nbQuillesTour;
-    }
-
-    public void strike() {
-        System.out.println("Strike!");
-        Strike s = new Strike();
-        listStrike.add(s);
-        //Spécifique au 10e tour
-        nbLancer = 0;
-        nbQuillesTour = 0;
-    }
-
-    public void spare() {
-        System.out.println("Spare!");
-        Spare s = new Spare();
-        listSpare.add(s);
-    }
-
-    /**
      * Définit le nom du joueur.
      */
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    /**
-     * Ajoute une valeur aux pointsTotal du joueur.
-     */
-    public void addPoints(int pts) {
-        this.pointsTotal += pts;
     }
 
     public void printPoints(){

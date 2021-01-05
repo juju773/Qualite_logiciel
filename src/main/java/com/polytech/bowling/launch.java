@@ -4,6 +4,7 @@ package com.polytech.bowling;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +22,15 @@ public class launch extends JFrame implements ActionListener{
     JPanel panelBoutonsQuilles = new JPanel(); 
     JPanel panelPrincipal = new JPanel(new BorderLayout());
     JPanel panelBoutonAddRemove = new JPanel();
-    JPanel panelLabelJoueurCourant = new JPanel();
-    JPanel panelScores = new JPanel();
+    JPanel panelLabelJoueurCourant = new JPanel(new GridLayout(2,1));
+    JPanel panelScores = new JPanel(new GridLayout(5,1));
 
     List<JLabel> listLabelScores = new ArrayList<JLabel>();
 
 
     private int nbJoueurs = 0;
     JLabel labelNbJoueurs = new JLabel("Nombre de joueurs : 0");
+    JLabel labelNBTour = new JLabel("Tour n° : ");
 
     JLabel labelCurrentPlayer = new JLabel("");
     int currentPlayer = 0;
@@ -43,20 +45,20 @@ public class launch extends JFrame implements ActionListener{
         };
 
         addWindowListener(l);
-        setSize(800,600);
+        setSize(600,600);
         setVisible(true);
 
         panelBoutonAddRemove.add(addPlayer);
         panelBoutonAddRemove.add(removePlayer);
         panelBoutonAddRemove.add(labelNbJoueurs);
 
-        panelLabelJoueurCourant.add(labelCurrentPlayer);
+        panelLabelJoueurCourant.add(labelCurrentPlayer,1,0);
+        panelLabelJoueurCourant.add(labelNBTour,0,0);
 
 
         //Listeners
         for(int i = 0; i < 11; i++){
             JButton b = new JButton("" + i);
-            b.setSize(50, 50);
             boutons.add(b);
             b.addActionListener(this);
             panelBoutonsQuilles.add(b);
@@ -70,7 +72,8 @@ public class launch extends JFrame implements ActionListener{
         this.setContentPane(panelPrincipal);
         panelPrincipal.add(panelBoutonAddRemove, BorderLayout.WEST);
         panelPrincipal.add(panelBoutonsQuilles, BorderLayout.NORTH);
-        panelPrincipal.add(panelLabelJoueurCourant, BorderLayout.CENTER);
+        panelPrincipal.add(panelLabelJoueurCourant, BorderLayout.EAST);
+        panelPrincipal.add(panelScores,BorderLayout.CENTER);
 }
 
     @Override
@@ -81,8 +84,12 @@ public class launch extends JFrame implements ActionListener{
                 removePlayer.setEnabled(false);
 
                 int nbQuillesTombees = Integer.valueOf(boutons.get(i).getText());
-                bowling.getPlayers().get(currentPlayer).addPoints(bowling.getPlayers().get(currentPlayer).calculatePoint(nbQuillesTombees, 1)); 
+                Player p = bowling.getPlayers().get(currentPlayer);
                 bowling.getPlayers().get(currentPlayer).incrementNbLancer();
+                p.getScore().addPoint(nbQuillesTombees, p.getNbTour(), p.getNbLancer());
+                listLabelScores.get(currentPlayer).setText("Joueur " + (currentPlayer + 1) + " : " + p.getScore().getScoreTotal());
+
+
                 if(nbQuillesTombees == 10){
                     bowling.getPlayers().get(currentPlayer).incrementNbLancer();
                 }
@@ -95,9 +102,9 @@ public class launch extends JFrame implements ActionListener{
                 
                 //CHANGEMENT DE JOUEUR
                 if(bowling.getPlayers().get(currentPlayer).getNbLancer() == 2){
-                    bowling.getPlayers().get(currentPlayer).resetNbLancer();
-                    bowling.getPlayers().get(currentPlayer).incrementNbTour();
-                    System.out.println(bowling.getPlayers().get(currentPlayer).getNbTour());
+                    p.resetNbLancer();
+                    p.incrementNbTour();
+                    labelNBTour.setText("Tour n° " + p.getNbTour());
 
                     currentPlayer = (currentPlayer + 1)%bowling.getPlayers().size(); //joueur suivant
                     labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
@@ -107,7 +114,11 @@ public class launch extends JFrame implements ActionListener{
                         boutons.get(j).setVisible(true);
                     }
                 }
+                if(bowling.getPlayers().get(0).getNbTour() == bowling.getPlayers().get(0).getNbMaxTour()){
+                    //FIN + REJOUER
+                }
             }
+            
         }
         
         //GESTION DES AJOUTS ET SUPPRESSION DES UTILISATEURS
@@ -118,8 +129,9 @@ public class launch extends JFrame implements ActionListener{
             labelNbJoueurs.setText("Nombre de joueurs : " + nbJoueurs);
 
             //LABEL SCORES
-            JLabel l = new JLabel("Joueur " + nbJoueurs);
+            JLabel l = new JLabel("Joueur " + nbJoueurs + " : ");
             listLabelScores.add(l);
+            panelScores.add(l,nbJoueurs - 1,0);
 
             removePlayer.setEnabled(true);
 
@@ -130,11 +142,17 @@ public class launch extends JFrame implements ActionListener{
             }
 
             labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
+
+            if(nbJoueurs == 5){
+                addPlayer.setEnabled(false);
+            }
         }
         if(e.getSource().equals(removePlayer)){
             System.out.println("remove player");
             bowling.removePlayer();
-            listLabelScores.remove(nbJoueurs);
+            listLabelScores.get(listLabelScores.size() - 1).setVisible(false);
+            panelScores.remove(listLabelScores.get(listLabelScores.size() - 1));
+            listLabelScores.remove(listLabelScores.size() - 1);
             nbJoueurs -= 1;
             labelNbJoueurs.setText("Nombre de joueurs : " + nbJoueurs);
 
@@ -146,7 +164,11 @@ public class launch extends JFrame implements ActionListener{
                     removePlayer.setEnabled(false);
                 }
             }
+            if(nbJoueurs < 5){
+                addPlayer.setEnabled(true);
+            }
         }
+
     }
 
 
