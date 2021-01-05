@@ -27,8 +27,8 @@ class AppTest {
     @Test
     void testNbQuilles(){
         Player p = new Player("test");
-        p.calculatePoint(4,1);
-        assertEquals(4, p.getNbQuillesTour());
+        p.getScore().addPoint(4, 1, 1);
+        assertEquals(4, p.getScore().getScoreTotal()); 
     }
 
     
