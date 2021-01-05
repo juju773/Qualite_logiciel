@@ -22,6 +22,9 @@ public class launch extends JFrame implements ActionListener{
     JPanel panelPrincipal = new JPanel(new BorderLayout());
     JPanel panelBoutonAddRemove = new JPanel();
     JPanel panelLabelJoueurCourant = new JPanel();
+    JPanel panelScores = new JPanel();
+
+    List<JLabel> listLabelScores = new ArrayList<JLabel>();
 
 
     private int nbJoueurs = 0;
@@ -77,7 +80,6 @@ public class launch extends JFrame implements ActionListener{
                 addPlayer.setEnabled(false);
                 removePlayer.setEnabled(false);
 
-
                 int nbQuillesTombees = Integer.valueOf(boutons.get(i).getText());
                 bowling.getPlayers().get(currentPlayer).addPoints(bowling.getPlayers().get(currentPlayer).calculatePoint(nbQuillesTombees, 1)); 
                 bowling.getPlayers().get(currentPlayer).incrementNbLancer();
@@ -95,6 +97,7 @@ public class launch extends JFrame implements ActionListener{
                 if(bowling.getPlayers().get(currentPlayer).getNbLancer() == 2){
                     bowling.getPlayers().get(currentPlayer).resetNbLancer();
                     bowling.getPlayers().get(currentPlayer).incrementNbTour();
+                    System.out.println(bowling.getPlayers().get(currentPlayer).getNbTour());
 
                     currentPlayer = (currentPlayer + 1)%bowling.getPlayers().size(); //joueur suivant
                     labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
@@ -110,9 +113,13 @@ public class launch extends JFrame implements ActionListener{
         //GESTION DES AJOUTS ET SUPPRESSION DES UTILISATEURS
         if(e.getSource().equals(addPlayer)){
             System.out.println("add player");
-            bowling.addNewPlayer("joueur " + bowling.getPlayers().size() + 1);
+            bowling.addNewPlayer("joueur " + (bowling.getPlayers().size() + 1));
             nbJoueurs += 1;
             labelNbJoueurs.setText("Nombre de joueurs : " + nbJoueurs);
+
+            //LABEL SCORES
+            JLabel l = new JLabel("Joueur " + nbJoueurs);
+            listLabelScores.add(l);
 
             removePlayer.setEnabled(true);
 
@@ -127,6 +134,7 @@ public class launch extends JFrame implements ActionListener{
         if(e.getSource().equals(removePlayer)){
             System.out.println("remove player");
             bowling.removePlayer();
+            listLabelScores.remove(nbJoueurs);
             nbJoueurs -= 1;
             labelNbJoueurs.setText("Nombre de joueurs : " + nbJoueurs);
 
