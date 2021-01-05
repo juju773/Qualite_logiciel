@@ -21,8 +21,8 @@ class AppTest {
         assertTrue(bowling.addNewPlayer("Julien"));
 
         assertEquals(2, bowling.getPlayers().size());
-        assertEquals(0, bowling.getPlayers().get(0).getPoints());
-        assertEquals(0, bowling.getPlayers().get(1).getPoints());
+        assertEquals(0, bowling.getPlayers().get(0).getScore().getScoreTotal());
+        assertEquals(0, bowling.getPlayers().get(1).getScore().getScoreTotal());
         assertEquals("Lucas", bowling.getPlayers().get(0).getNom());
         assertEquals("Julien", bowling.getPlayers().get(1).getNom());
     }
