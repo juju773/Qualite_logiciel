@@ -1,7 +1,7 @@
 #
 # Standard Maven .gitignore
 #
-target/
+target/*
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -10,7 +10,7 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-!target/bowling-1.0-SNAPSHOT.jar
+!bowling-1.0-SNAPSHOT.jar
 
 #
 # IntelliJ
