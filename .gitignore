@@ -11,6 +11,8 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 !bowling-1.0-SNAPSHOT.jar
+!bowling-1.0-CONSOLE.jar
+!bowling-1.0-GUI.jar
 
 #
 # IntelliJ
