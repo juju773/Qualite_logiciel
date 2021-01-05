@@ -38,6 +38,7 @@ public class Player {
         nbQuillesTour = 0;
         listStrike.clear();
         listSpare.clear();
+        score = new Score();
     }
 
     /**
@@ -76,13 +77,6 @@ public class Player {
     public void incrementNbTour(){
         nbTour++;
     }
-    /**
-     * Récupère le nombre de point du joueur.
-     */
-    public int getPoints() {
-        return pointsTotal;
-    }
-
     public boolean canPlay() {
         return nbTour < maxNbTour;
     }
@@ -98,6 +92,7 @@ public class Player {
     public void joue(Scanner sc) {
         if (getNbTour() <= maxNbTour) {
             int nbQuillesLancer = lancer(sc);
+            nbQuillesTour = nbQuillesLancer;
             score.addPoint(nbQuillesLancer, nbTour, 1);
 
             int nbQuillesLancer2 = -1;
@@ -139,7 +134,7 @@ public class Player {
             System.out.print("Nombre de quilles tombées: ");
             nbQuillesLancer = sc.nextInt();
             if(nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0)
-                System.out.println("Erreur: Veuillez renseigner une somme comprise entre 0 et 10");
+                System.out.println("Erreur: Veuillez renseigner un nombre compris entre 0 et " + (10 - nbQuillesTour) );
         }while (nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0);
         nbLancer++;
         return nbQuillesLancer;
