@@ -103,9 +103,6 @@ public class Player {
             int nbQuillesLancer = lancer(sc);
             score.addPoint(nbQuillesLancer, nbTour, 1);
 
-            // int points = calculatePoint(nbQuillesLancer, nbLancer);
-            // addPoints(points); // On ajoute le nombre de quilles
-
             int nbQuillesLancer2 = -1;
             //2e Lancer
             if (nbQuillesLancer != 10 && nbLancer == 1){
@@ -133,6 +130,38 @@ public class Player {
         System.out.println("\n");
     }
 
+        public void joue(int nbQuillesLancer) {
+        if (getNbTour() <= maxNbTour) {
+            nbQuillesLancer = lancer(nbQuillesLancer);
+            score.addPoint(nbQuillesLancer, nbTour, 1);
+
+            int nbQuillesLancer2 = -1;
+            //2e Lancer
+            if (nbQuillesLancer != 10 && nbLancer == 1){
+                nbQuillesLancer2 = lancer(nbQuillesLancer);
+                score.addPoint(nbQuillesLancer2, nbTour, 2);
+            }
+            //Règle 10e lancer Strike
+            if(nbTour == 9 && nbQuillesLancer == 10 && nbLancer != 2){
+                nbQuillesTour = 0;
+                nbLancer = 0;
+                score.addPoint(lancer(nbQuillesLancer), nbTour, 1);
+                score.addPoint(lancer(nbQuillesLancer), nbTour, 2);
+            }
+            //Règle 10e lancer Spare
+            else if(nbTour == 9 && (nbQuillesLancer + nbQuillesLancer2) == 10 && nbLancer == 2){
+                nbQuillesTour = 0;
+                nbLancer = 0;
+                score.addPoint(lancer(nbQuillesLancer), nbTour, 1);
+            }
+            printPoints();
+        }
+        nbTour++;
+        nbQuillesTour = 0;
+        nbLancer = 0;
+        System.out.println("\n");
+    }
+
     /**
      * Lancer
      * @param sc
@@ -147,6 +176,16 @@ public class Player {
             if(nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0)
                 System.out.println("Erreur: Veuillez renseigner une somme comprise entre 0 et 10");
         }while (nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0);
+        nbLancer++;
+        return nbQuillesLancer;
+    }
+
+    public int lancer(int nbQuillesLancer){
+        if(nbQuillesLancer<0)
+            nbQuillesLancer=0;
+        else if(nbQuillesTour+nbQuillesLancer>10)
+            nbQuillesLancer = 10-nbQuillesTour;
+
         nbLancer++;
         return nbQuillesLancer;
     }

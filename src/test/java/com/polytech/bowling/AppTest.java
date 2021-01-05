@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+
 /**
  * Unit test for simple App.
  */
@@ -31,5 +33,15 @@ class AppTest {
         assertEquals(4, p.getNbQuillesTour());
     }
 
+    @Test
+    void testReplayConsole(){
+        Bowling bowling = new Bowling();
+    
+        Player p1 = new Player("test");
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        ConsoleGame.restartGame(2,bowling,players);
+        assertEquals(1,p1.getNbLancer());
+    }
     
 }
