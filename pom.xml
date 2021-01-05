@@ -107,7 +107,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>com.polytech.bowling.ConsoleGame</mainClass>
+              <mainClass>com.polytech.bowling.launch</mainClass>
             </manifest>
           </archive>
         </configuration>
