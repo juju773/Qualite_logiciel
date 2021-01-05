@@ -61,6 +61,9 @@ public class Player {
     public int getNbLancer() {
         return nbLancer;
     }
+    public void incrementNbLancer() {
+        nbLancer++;
+    }
 
     /**
      * Récupère le nombre de tours du joueur.
