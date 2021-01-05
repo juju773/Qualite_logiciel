@@ -114,10 +114,11 @@ public class launch extends JFrame implements ActionListener{
                         boutons.get(j).setVisible(true);
                     }
                 }
+                if(bowling.getPlayers().get(0).getNbTour() == bowling.getPlayers().get(0).getNbMaxTour()){
+                    //FIN + REJOUER
+                }
             }
-            if(p.getNbTour() == p.getNbMaxTour()){
-                super.dispose();
-            }
+            
         }
         
         //GESTION DES AJOUTS ET SUPPRESSION DES UTILISATEURS
@@ -162,6 +163,9 @@ public class launch extends JFrame implements ActionListener{
                 if(nbJoueurs ==0){
                     removePlayer.setEnabled(false);
                 }
+            }
+            if(nbJoueurs < 5){
+                addPlayer.setEnabled(true);
             }
         }
 
