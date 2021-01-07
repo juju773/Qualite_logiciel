@@ -148,6 +148,7 @@ public class launch extends JFrame implements ActionListener{
                     }
                 }
 
+                //CAS STRIKE
                 if(nbQuillesTombees == 10){
                     if(p.getNbTour() == 10 && regleT10 == 0 && !hasDoneT10){
                         regleT10 = 2;
@@ -155,6 +156,14 @@ public class launch extends JFrame implements ActionListener{
                     }
                     p.incrementNbLancer();
                 }
+                //CAS SPARE
+                else if(p.getScore().getScoreTurn(p.getNbTour()) == 10){
+                    regleT10 = 1;
+                    resetQuilles();
+                    return;
+                }
+
+                //CAS NORMAL
                 else{
                     //les boutons deviennent invisible pour que la somme soit inférieur ou égale à 10 (on enleve les quilles tombées)
                     for(int j = boutons.size() - 1; j > boutons.size() - i - 1; j--){
@@ -247,6 +256,12 @@ public class launch extends JFrame implements ActionListener{
             }
         }
 
+    }
+
+    private void resetQuilles(){
+        for(int j = 0; j < boutons.size(); j++){
+            boutons.get(j).setVisible(true);
+        }
     }
 
 
