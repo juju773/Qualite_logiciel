@@ -24,6 +24,7 @@ public class launch extends JFrame implements ActionListener{
     JPanel panelBoutonAddRemove = new JPanel();
     JPanel panelLabelJoueurCourant = new JPanel(new GridLayout(2,1));
     JPanel panelScores = new JPanel(new GridLayout(5,1));
+    JPanel panelAffichageFin = new JPanel();
 
     List<JLabel> listLabelScores = new ArrayList<JLabel>();
 
@@ -34,6 +35,8 @@ public class launch extends JFrame implements ActionListener{
 
     JLabel labelCurrentPlayer = new JLabel("");
     int currentPlayer = 0;
+
+    JLabel labelScoreFin = new JLabel();
 
    public launch() {
         super("Bowling !");
@@ -68,12 +71,14 @@ public class launch extends JFrame implements ActionListener{
         removePlayer.addActionListener(this);
         removePlayer.setEnabled(false);
 
+        panelAffichageFin.add(labelScoreFin);
         
         this.setContentPane(panelPrincipal);
         panelPrincipal.add(panelBoutonAddRemove, BorderLayout.WEST);
         panelPrincipal.add(panelBoutonsQuilles, BorderLayout.NORTH);
         panelPrincipal.add(panelLabelJoueurCourant, BorderLayout.EAST);
         panelPrincipal.add(panelScores,BorderLayout.CENTER);
+        panelPrincipal.add(panelAffichageFin,BorderLayout.SOUTH);
 }
 
     @Override
@@ -114,8 +119,20 @@ public class launch extends JFrame implements ActionListener{
                         boutons.get(j).setVisible(true);
                     }
                 }
-                if(bowling.getPlayers().get(0).getNbTour() == Player.MAX_NB_TURN){
+                if(bowling.getPlayers().get(bowling.getPlayers().size() - 1).getNbTour() == Player.MAX_NB_TURN){
                     //FIN + REJOUER
+                    int scoreMax = 0;
+                    Player gagnant = null;
+                    for(int j = 0; j < bowling.getPlayers().size() - 1;j++){
+                        if(bowling.getPlayers().get(j).getScore().getScoreTotal() > scoreMax){
+                            gagnant = bowling.getPlayers().get(j);
+                            scoreMax  = gagnant.getScore().getScoreTotal();
+                        }
+                    }
+                    labelScoreFin.setText(gagnant.getNom() + " a gagné avec " + gagnant.getScore().getScoreTotal() + " points !");
+                    for(int j = 0; j < boutons.size(); j++){
+                        boutons.get(j).setEnabled(false);
+                    }
                 }
             }
             
