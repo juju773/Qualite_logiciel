@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 public class ScorePanel extends JPanel {
@@ -20,9 +21,10 @@ public class ScorePanel extends JPanel {
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         JLabel lTurn = new JLabel("" + turn);
         lTurn.setHorizontalAlignment(SwingConstants.CENTER);
-        this.add(lTurn, 0 , 0);
+        this.add(lTurn, 2 , 0);
         this.add(turnPanel, 1, 0);
-        this.add(finalScore, 2, 0);
+        this.add(finalScore, 0, 0);
+        this.setPreferredSize(new Dimension(50, 50));
     }
 
     public void setFinalScore(int score){
@@ -33,7 +35,7 @@ public class ScorePanel extends JPanel {
         if(lancer == 1)
             setScoreLancer1(score);
         if(lancer == 2)
-            setScoreLancer1(score);
+            setScoreLancer2(score);
     }
 
     public void setScoreLancer1(int score){

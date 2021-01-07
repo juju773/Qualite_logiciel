@@ -119,9 +119,9 @@ public class launch extends JFrame implements ActionListener{
                 Player p = bowling.getPlayers().get(currentPlayer);
                 bowling.getPlayers().get(currentPlayer).incrementNbLancer();
                 p.getScore().addPoint(nbQuillesTombees, p.getNbTour(), p.getNbLancer());
-                
-                panelTourScore[currentPlayer][p.getNbTour()].setScore(nbQuillesTombees, p.getNbLancer()-1);
-                panelTourScore[currentPlayer][p.getNbTour()].setFinalScore(p.getScore().getScoreTurn(p.getNbTour()));
+
+                panelTourScore[currentPlayer][p.getNbTour()-1].setScore(nbQuillesTombees, p.getNbLancer());
+                panelTourScore[currentPlayer][p.getNbTour()-1].setFinalScore(p.getScore().getScoreTurn(p.getNbTour()));
 
 
                 //listLabelScores.get(currentPlayer).setText("Joueur " + (currentPlayer + 1) + " : " + p.getScore().getScoreTotal());
