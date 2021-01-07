@@ -98,7 +98,11 @@ public class launch extends JFrame implements ActionListener{
 
 
                 if(nbQuillesTombees == 10){
-                    bowling.getPlayers().get(currentPlayer).incrementNbLancer();
+                    if(!(p.getNbTour() == 9)){
+                        if(!(p.getNbTour() == 10)){
+                            p.incrementNbLancer();
+                        }
+                    }
                 }
                 else{
                     //les boutons deviennent invisible pour que la somme soit inférieur ou égale à 10 (on enleve les quilles tombées)
@@ -108,7 +112,7 @@ public class launch extends JFrame implements ActionListener{
                 }
                 
                 //CHANGEMENT DE JOUEUR
-                if(bowling.getPlayers().get(currentPlayer).getNbLancer() == 2){
+                if(p.getNbLancer() == 2){
                     p.resetNbLancer();
                     p.incrementNbTour();
                     labelNBTour.setText("Tour n° " + p.getNbTour());
