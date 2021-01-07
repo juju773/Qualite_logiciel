@@ -36,6 +36,9 @@ public class launch extends JFrame implements ActionListener{
 
     List<JLabel> listLabelScores = new ArrayList<JLabel>();
 
+    int regleT10 = 0;
+    boolean hasDoneT10 = false;
+
 
 
 
@@ -135,8 +138,21 @@ public class launch extends JFrame implements ActionListener{
 
                 //listLabelScores.get(currentPlayer).setText("Joueur " + (currentPlayer + 1) + " : " + p.getScore().getScoreTotal());
 
+                if(regleT10 > 0){
+                    regleT10--;
+                    if(regleT10 == 0){
+                        hasDoneT10 = true;
+                    }
+                    else{
+                        return;
+                    }
+                }
 
                 if(nbQuillesTombees == 10){
+                    if(p.getNbTour() == 10 && regleT10 == 0 && !hasDoneT10){
+                        regleT10 = 2;
+                        return;
+                    }
                     p.incrementNbLancer();
                 }
                 else{
@@ -147,26 +163,23 @@ public class launch extends JFrame implements ActionListener{
                 }
                 
                 //CHANGEMENT DE JOUEUR
-                if(p.getNbLancer() == 2){
-                    if(nbQuillesTombees == 10 && p.getNbTour() == 9){
-                        p.decrementNbTour();
-                    }
-                    else{
-                        p.resetNbLancer();
-                        p.incrementNbTour();
-                        labelNBTour.setText("Tour n° " + p.getNbTour());
+                if(p.getNbLancer() == 2 || hasDoneT10){
+                
+                    p.resetNbLancer();
+                    p.incrementNbTour();
+                    labelNBTour.setText("Tour n° " + p.getNbTour());
 
-                        currentPlayer = (currentPlayer + 1)%bowling.getPlayers().size(); //joueur suivant
-                        labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
-                        nbQuillesTombees = 0;
-                    }
+                    currentPlayer = (currentPlayer + 1)%bowling.getPlayers().size(); //joueur suivant
+                    labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
+                    nbQuillesTombees = 0;
                     
                     //tous les boutons sont de nouveaux visibles (on remet les quilles droites)
                     for(int j = 0; j < boutons.size(); j++){
                         boutons.get(j).setVisible(true);
                     }
+                    hasDoneT10 = false;
                 }
-                if(bowling.getPlayers().get(bowling.getPlayers().size() - 1).getNbTour() == Player.MAX_NB_TURN){
+                if(bowling.getPlayers().get(bowling.getPlayers().size() - 1).getNbTour() > Player.MAX_NB_TURN){
                     //FIN + REJOUER
                     int scoreMax = 0;
                     Player gagnant = null;
