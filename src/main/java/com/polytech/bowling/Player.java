@@ -74,6 +74,9 @@ public class Player {
     public void incrementNbTour(){
         nbTour++;
     }
+    public void decrementNbTour(){
+        nbTour--;
+    }
     public boolean canPlay() {
         return nbTour < maxNbTour;
     }
