@@ -8,6 +8,9 @@ import java.util.Scanner;
  * Classe Player.
  */
 public class Player {
+
+    public static final int MAX_NB_TURN = 9; //10 Turn minus 1 because index start at 0 
+
     private String nom;
     private int nbLancer;
     private int nbTour;
@@ -20,7 +23,6 @@ public class Player {
     public Player(String pNom) {
         nom = pNom;
         nbTour = 0;
-        maxNbTour = 10;
         nbLancer = 0;
         nbQuillesTour = 0;
         listStrike = new ArrayList<Strike>();
@@ -30,19 +32,11 @@ public class Player {
 
     public void reset(){
         nbTour = 0;
-        maxNbTour = 10;
         nbLancer = 1;
         nbQuillesTour = 0;
         listStrike.clear();
         listSpare.clear();
         score = new Score();
-    }
-
-    /**
-     * Récupère le nombre de tours max du joueur.
-     */
-    public int getNbMaxTour() {
-        return maxNbTour;
     }
 
     /**
@@ -90,7 +84,7 @@ public class Player {
      * @param sc
      */
     public void joue(Scanner sc) {
-        if (getNbTour() <= maxNbTour) {
+        if (nbTour <= MAX_NB_TURN) {
             int nbQuillesLancer = lancer(sc);
             nbQuillesTour = nbQuillesLancer;
             score.addPoint(nbQuillesLancer, nbTour, 1);
@@ -102,14 +96,14 @@ public class Player {
                 score.addPoint(nbQuillesLancer2, nbTour, 2);
             }
             //Règle 10e lancer Strike
-            if(nbTour == 9 && nbQuillesLancer == 10 && nbLancer != 2){
+            if(nbTour == MAX_NB_TURN && nbQuillesLancer == 10 && nbLancer != 2){
                 nbQuillesTour = 0;
                 nbLancer = 0;
                 score.addPoint(lancer(sc), nbTour, 1);
                 score.addPoint(lancer(sc), nbTour, 2);
             }
             //Règle 10e lancer Spare
-            else if(nbTour == 9 && (nbQuillesLancer + nbQuillesLancer2) == 10 && nbLancer == 2){
+            else if(nbTour == MAX_NB_TURN && (nbQuillesLancer + nbQuillesLancer2) == 10 && nbLancer == 2){
                 nbQuillesTour = 0;
                 nbLancer = 0;
                 score.addPoint(lancer(sc), nbTour, 1);
@@ -121,39 +115,6 @@ public class Player {
         nbLancer = 0;
         System.out.println("\n");
     }
-
-        public void joue(int nbQuillesLancer) {
-        if (getNbTour() <= maxNbTour) {
-            nbQuillesLancer = lancer(nbQuillesLancer);
-            score.addPoint(nbQuillesLancer, nbTour, 1);
-
-            int nbQuillesLancer2 = -1;
-            //2e Lancer
-            if (nbQuillesLancer != 10 && nbLancer == 1){
-                nbQuillesLancer2 = lancer(nbQuillesLancer);
-                score.addPoint(nbQuillesLancer2, nbTour, 2);
-            }
-            //Règle 10e lancer Strike
-            if(nbTour == 9 && nbQuillesLancer == 10 && nbLancer != 2){
-                nbQuillesTour = 0;
-                nbLancer = 0;
-                score.addPoint(lancer(nbQuillesLancer), nbTour, 1);
-                score.addPoint(lancer(nbQuillesLancer), nbTour, 2);
-            }
-            //Règle 10e lancer Spare
-            else if(nbTour == 9 && (nbQuillesLancer + nbQuillesLancer2) == 10 && nbLancer == 2){
-                nbQuillesTour = 0;
-                nbLancer = 0;
-                score.addPoint(lancer(nbQuillesLancer), nbTour, 1);
-            }
-            printPoints();
-        }
-        nbTour++;
-        nbQuillesTour = 0;
-        nbLancer = 0;
-        System.out.println("\n");
-    }
-
     /**
      * Lancer
      * @param sc
@@ -168,16 +129,6 @@ public class Player {
             if(nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0)
                 System.out.println("Erreur: Veuillez renseigner un nombre compris entre 0 et " + (10 - nbQuillesTour) );
         }while (nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0);
-        nbLancer++;
-        return nbQuillesLancer;
-    }
-
-    public int lancer(int nbQuillesLancer){
-        if(nbQuillesLancer<0)
-            nbQuillesLancer=0;
-        else if(nbQuillesTour+nbQuillesLancer>10)
-            nbQuillesLancer = 10-nbQuillesTour;
-
         nbLancer++;
         return nbQuillesLancer;
     }

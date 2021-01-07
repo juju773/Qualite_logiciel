@@ -123,7 +123,7 @@ public class launch extends JFrame implements ActionListener{
                         boutons.get(j).setVisible(true);
                     }
                 }
-                if(bowling.getPlayers().get(bowling.getPlayers().size() - 1).getNbTour() == 10){
+                if(bowling.getPlayers().get(bowling.getPlayers().size() - 1).getNbTour() == Player.MAX_NB_TURN){
                     //FIN + REJOUER
                     int scoreMax = 0;
                     Player gagnant = null;
