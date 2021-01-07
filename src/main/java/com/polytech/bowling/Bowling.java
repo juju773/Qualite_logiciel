@@ -8,13 +8,6 @@ import java.util.ArrayList;
  */
 public class Bowling {
 
-    /**
-     * Empty constructor.
-     */
-    public Bowling() {
-        // .
-    }
-
     private ArrayList<Player> players = new ArrayList<>();
     
 

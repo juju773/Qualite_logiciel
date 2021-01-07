@@ -34,36 +34,6 @@ public class ConsoleGame {
         restartGame(keyboard,bowling);
     }
 
-    public static void game(Bowling bowling){
-        System.out.println("Voici les joueurs:");
-        for (Player p : bowling.getPlayers()) {
-            System.out.println(p.getNom());
-        }
-        System.out.print("\n");
-        Random r = new Random();
-        int tour = 0;
-        while (true) {
-            tour++;
-            for (Player p : bowling.getPlayersThatCanPlay()) {
-                    System.out.println("Tour n°"+tour);
-                    
-                    int randint = Math.abs(r.nextInt()) % 11;
-                    p.joue(randint);
-            }
-            if (bowling.getPlayersThatCanPlay().isEmpty())
-                break;
-        }
-
-        int position = 1;
-        for (Player p : bowling.getPlayers()) {
-            System.out.println(position + ". " + p.getNom() + " - " + p.getScore().getScoreTotal() + "pts");
-            position++;
-            p.reset();
-        }
-
-        restartGame(3,bowling, bowling.getPlayers());
-    }
-
     /**
      * Fonction main du bowling en mode console
      */
@@ -109,21 +79,5 @@ public class ConsoleGame {
             }
             System.out.println("\n");
         } while (choix<1 || choix>3);
-    }
-
-    public static void restartGame(int choix, Bowling bowling, ArrayList<Player> players){
-        switch(choix){
-            case 1:
-                game(Bowling.getPlayersForGame(bowling.getPlayers()));
-            break;
-            case 2:
-                game(Bowling.getPlayersForGame(players));
-            break;
-            case 3:
-                System.out.println("Bien joué, au revoir!");
-            break;
-            default:
-            break;
-        }
     }
 }

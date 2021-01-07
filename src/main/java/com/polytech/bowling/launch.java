@@ -114,7 +114,7 @@ public class launch extends JFrame implements ActionListener{
                         boutons.get(j).setVisible(true);
                     }
                 }
-                if(bowling.getPlayers().get(0).getNbTour() == bowling.getPlayers().get(0).getNbMaxTour()){
+                if(bowling.getPlayers().get(0).getNbTour() == Player.MAX_NB_TURN){
                     //FIN + REJOUER
                 }
             }
