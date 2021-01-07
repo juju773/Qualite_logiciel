@@ -29,6 +29,8 @@ public class launch extends JFrame implements ActionListener{
     List<JLabel> listLabelScores = new ArrayList<JLabel>();
 
 
+    
+
     private int nbJoueurs = 0;
     JLabel labelNbJoueurs = new JLabel("Nombre de joueurs : 0");
     JLabel labelNBTour = new JLabel("Tour n° : ");

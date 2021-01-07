@@ -47,4 +47,7 @@ public class Score{
         return total;
     }
 
+    public int getScoreTurn(int turn){
+        return ttls[turn] == 0 ? scores[turn] : 0;
+    }
 }

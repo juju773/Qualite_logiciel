@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Unit test for simple App.
@@ -40,7 +41,7 @@ class AppTest {
         Player p1 = new Player("test");
         ArrayList<Player> players = new ArrayList<Player>();
         players.add(p1);
-        ConsoleGame.restartGame(2,bowling,players);
+        ConsoleGame.restartGame(new Scanner(System.in),bowling);
         assertEquals(1,p1.getNbLancer());
     }
     

@@ -9,33 +9,26 @@ import java.util.Scanner;
  */
 public class Player {
 
-    public static final int MAX_NB_TURN = 9; //10 Turn minus 1 because index start at 0 
+    public static final int MAX_NB_TURN = 10; //10 Turn minus 1 because index start at 0 
 
     private String nom;
     private int nbLancer;
     private int nbTour;
-    private int maxNbTour;
     private int nbQuillesTour; // Nombre de quilles tombées ce tour
-    private List<Strike> listStrike;
-    private List<Spare> listSpare;
     private Score score;
 
     public Player(String pNom) {
         nom = pNom;
-        nbTour = 0;
+        nbTour = 1;
         nbLancer = 0;
         nbQuillesTour = 0;
-        listStrike = new ArrayList<Strike>();
-        listSpare = new ArrayList<Spare>();
         score = new Score();
     }
 
     public void reset(){
-        nbTour = 0;
+        nbTour = 1;
         nbLancer = 1;
         nbQuillesTour = 0;
-        listStrike.clear();
-        listSpare.clear();
         score = new Score();
     }
 
@@ -69,7 +62,7 @@ public class Player {
         nbTour++;
     }
     public boolean canPlay() {
-        return nbTour < maxNbTour;
+        return nbTour < MAX_NB_TURN;
     }
 
     public Score getScore(){
