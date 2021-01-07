@@ -114,11 +114,7 @@ public class launch extends JFrame implements ActionListener{
 
 
                 if(nbQuillesTombees == 10){
-                    if(!(p.getNbTour() == 9)){
-                        if(!(p.getNbTour() == 10)){
-                            p.incrementNbLancer();
-                        }
-                    }
+                    p.incrementNbLancer();
                 }
                 else{
                     //les boutons deviennent invisible pour que la somme soit inférieur ou égale à 10 (on enleve les quilles tombées)
@@ -129,13 +125,19 @@ public class launch extends JFrame implements ActionListener{
                 
                 //CHANGEMENT DE JOUEUR
                 if(p.getNbLancer() == 2){
-                    p.resetNbLancer();
-                    p.incrementNbTour();
-                    labelNBTour.setText("Tour n° " + p.getNbTour());
+                    if(nbQuillesTombees == 10 && p.getNbTour() == 9){
+                        p.decrementNbTour();
+                    }
+                    else{
+                        p.resetNbLancer();
+                        p.incrementNbTour();
+                        labelNBTour.setText("Tour n° " + p.getNbTour());
 
-                    currentPlayer = (currentPlayer + 1)%bowling.getPlayers().size(); //joueur suivant
-                    labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
-                    nbQuillesTombees = 0;
+                        currentPlayer = (currentPlayer + 1)%bowling.getPlayers().size(); //joueur suivant
+                        labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
+                        nbQuillesTombees = 0;
+                    }
+                    
                     //tous les boutons sont de nouveaux visibles (on remet les quilles droites)
                     for(int j = 0; j < boutons.size(); j++){
                         boutons.get(j).setVisible(true);
@@ -145,7 +147,7 @@ public class launch extends JFrame implements ActionListener{
                     //FIN + REJOUER
                     int scoreMax = 0;
                     Player gagnant = null;
-                    for(int j = 0; j < bowling.getPlayers().size() - 1;j++){
+                    for(int j = 0; j < bowling.getPlayers().size();j++){
                         if(bowling.getPlayers().get(j).getScore().getScoreTotal() > scoreMax){
                             gagnant = bowling.getPlayers().get(j);
                             scoreMax  = gagnant.getScore().getScoreTotal();
