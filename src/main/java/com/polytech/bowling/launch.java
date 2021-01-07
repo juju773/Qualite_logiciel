@@ -29,8 +29,9 @@ public class launch extends JFrame implements ActionListener{
 
     //Tableau des scores
     JPanel panelJoueurScore = new JPanel(new GridLayout(MAX_JOUEUR,1));
-    JPanel[] panelTableauScore = new JPanel[MAX_JOUEUR];
+    JPanel[] panelTableauScore = new JPanel[MAX_JOUEUR + 1];
     ScorePanel[][] panelTourScore = new ScorePanel[MAX_JOUEUR][Player.MAX_NB_TURN];
+    JLabel[] finalScores = new JLabel[MAX_JOUEUR];
 
 
     List<JLabel> listLabelScores = new ArrayList<JLabel>();
@@ -91,8 +92,12 @@ public class launch extends JFrame implements ActionListener{
                 panelTableauScore[i].add(panelTourScore[i][j], 0, j);
                 panelTableauScore[i].setVisible(false);
             }
+            finalScores[i] = new JLabel("" + 0);
+            panelTableauScore[i].add(finalScores[i],0,10);
             panelJoueurScore.add(panelTableauScore[i], i, 0);
+            
         }
+        
 
         
 
@@ -122,9 +127,11 @@ public class launch extends JFrame implements ActionListener{
                 bowling.getPlayers().get(currentPlayer).incrementNbLancer();
                 p.getScore().addPoint(nbQuillesTombees, p.getNbTour(), p.getNbLancer());
 
+                //Update Scores
                 panelTourScore[currentPlayer][p.getNbTour()-1].setScore(nbQuillesTombees, p.getNbLancer());
-                panelTourScore[currentPlayer][p.getNbTour()-1].setFinalScore(p.getScore().getScoreTurn(p.getNbTour()));
-
+                for(int j = 0; j< Player.MAX_NB_TURN;j++)
+                    panelTourScore[currentPlayer][j].setFinalScore(p.getScore().getScoreTurn(j+1));
+                finalScores[currentPlayer].setText("" + p.getScore().getScoreTotal());
 
                 //listLabelScores.get(currentPlayer).setText("Joueur " + (currentPlayer + 1) + " : " + p.getScore().getScoreTotal());
 
