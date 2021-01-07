@@ -26,10 +26,15 @@ public class launch extends JFrame implements ActionListener{
     JPanel panelScores = new JPanel(new GridLayout(5,1));
     JPanel panelAffichageFin = new JPanel();
 
+    //Tableau des scores
+    JPanel panelTableauScore = new JPanel(new GridLayout(1,Player.MAX_NB_TURN));
+    JPanel[] panelTourScore = new JPanel[Player.MAX_NB_TURN];
+
+
     List<JLabel> listLabelScores = new ArrayList<JLabel>();
 
 
-    
+
 
     private int nbJoueurs = 0;
     JLabel labelNbJoueurs = new JLabel("Nombre de joueurs : 0");
@@ -75,6 +80,17 @@ public class launch extends JFrame implements ActionListener{
 
         panelAffichageFin.add(labelScoreFin);
         
+
+        //Tableau des scores:
+        for (int i = 0; i < Player.MAX_NB_TURN; i++){
+            panelTourScore[i] = new JPanel(new GridLayout(3,1));
+            panelTourScore[i].add(new JLabel(""+i),0,0);
+            
+            panelTableauScore.add(panelTourScore[i], 0, i);
+        }
+
+
+
         this.setContentPane(panelPrincipal);
         panelPrincipal.add(panelBoutonAddRemove, BorderLayout.WEST);
         panelPrincipal.add(panelBoutonsQuilles, BorderLayout.NORTH);
