@@ -94,14 +94,14 @@ public class ConsoleGame {
             System.out.print("Voulez vous rejouer ?"+"\n1 - Oui avec les mêmes joueurs\n2 - Oui avec de nouveaux joueurs\n3 - Non\n> ");
             choix = keyboard.nextInt();
             switch(choix){
-                case 1:
+                case 1: //Oui avec les mêmes joueurs
                     game(keyboard,Bowling.getPlayersForGame(bowling.getPlayers()));
                 break;
-                case 2:
+                case 2: // Oui avec de nouveaux joueurs
                     keyboard.nextLine();
                     game(keyboard,getPlayersForGame(keyboard));
                 break;
-                case 3:
+                case 3: // Non
                     System.out.println("Bien joué, au revoir!");
                 break;
                 default:
