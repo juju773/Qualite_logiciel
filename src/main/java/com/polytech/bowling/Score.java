@@ -20,6 +20,7 @@ public class Score{
     }
 
     public void addPoint(int nbQuilles, int turn, int lancer){
+        turn--;
         if(turn - 2 >= 0 && ttls[turn - 2] > 0){
             scores[turn - 2] += nbQuilles;
             ttls[turn - 2]--;
@@ -48,6 +49,7 @@ public class Score{
     }
 
     public int getScoreTurn(int turn){
+        turn--;
         return ttls[turn] == 0 ? scores[turn] : 0;
     }
 }

@@ -65,7 +65,7 @@ public class Player {
         nbTour--;
     }
     public boolean canPlay() {
-        return nbTour < MAX_NB_TURN;
+        return nbTour <= MAX_NB_TURN;
     }
 
     public Score getScore(){
