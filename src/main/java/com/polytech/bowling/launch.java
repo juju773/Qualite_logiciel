@@ -105,6 +105,8 @@ public class launch extends JFrame implements ActionListener{
         //panelPrincipal.add(panelScores,BorderLayout.CENTER);
         panelPrincipal.add(panelJoueurScore, BorderLayout.CENTER);
         panelPrincipal.add(panelAffichageFin,BorderLayout.SOUTH);
+
+        panelPrincipal.revalidate();
         
 }
 
