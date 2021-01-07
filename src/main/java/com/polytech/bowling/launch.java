@@ -10,6 +10,7 @@ import java.util.List;
 
 public class launch extends JFrame implements ActionListener{
 
+    public static final int MAX_JOUEUR = 5;
 
     List<JButton> boutons = new ArrayList<JButton>();
     Bowling bowling = new Bowling();
@@ -23,12 +24,13 @@ public class launch extends JFrame implements ActionListener{
     JPanel panelPrincipal = new JPanel(new BorderLayout());
     JPanel panelBoutonAddRemove = new JPanel();
     JPanel panelLabelJoueurCourant = new JPanel(new GridLayout(2,1));
-    JPanel panelScores = new JPanel(new GridLayout(5,1));
+    JPanel panelScores = new JPanel(new GridLayout(MAX_JOUEUR,1));
     JPanel panelAffichageFin = new JPanel();
 
     //Tableau des scores
-    JPanel panelTableauScore = new JPanel(new GridLayout(1,Player.MAX_NB_TURN));
-    JPanel[] panelTourScore = new JPanel[Player.MAX_NB_TURN];
+    JPanel panelJoueurScore = new JPanel(new GridLayout(MAX_JOUEUR,1));
+    JPanel[] panelTableauScore = new JPanel[MAX_JOUEUR];
+    ScorePanel[][] panelTourScore = new ScorePanel[MAX_JOUEUR][Player.MAX_NB_TURN];
 
 
     List<JLabel> listLabelScores = new ArrayList<JLabel>();
@@ -55,7 +57,7 @@ public class launch extends JFrame implements ActionListener{
         };
 
         addWindowListener(l);
-        setSize(600,600);
+        setSize(1200,600);
         setVisible(true);
 
         panelBoutonAddRemove.add(addPlayer);
@@ -82,12 +84,17 @@ public class launch extends JFrame implements ActionListener{
         
 
         //Tableau des scores:
-        for (int i = 0; i < Player.MAX_NB_TURN; i++){
-            panelTourScore[i] = new JPanel(new GridLayout(3,1));
-            panelTourScore[i].add(new JLabel(""+i),0,0);
-            
-            panelTableauScore.add(panelTourScore[i], 0, i);
+        for(int i = 0;  i < MAX_JOUEUR; i++){
+            panelTableauScore[i] = new JPanel();
+            for (int j = 0; j < Player.MAX_NB_TURN; j++){
+                panelTourScore[i][j] = new ScorePanel(j+1);
+                panelTableauScore[i].add(panelTourScore[i][j], 0, j);
+                panelTableauScore[i].setVisible(false);
+            }
+            panelJoueurScore.add(panelTableauScore[i], i, 0);
         }
+
+        
 
 
 
@@ -95,8 +102,10 @@ public class launch extends JFrame implements ActionListener{
         panelPrincipal.add(panelBoutonAddRemove, BorderLayout.WEST);
         panelPrincipal.add(panelBoutonsQuilles, BorderLayout.NORTH);
         panelPrincipal.add(panelLabelJoueurCourant, BorderLayout.EAST);
-        panelPrincipal.add(panelScores,BorderLayout.CENTER);
+        //panelPrincipal.add(panelScores,BorderLayout.CENTER);
+        panelPrincipal.add(panelJoueurScore, BorderLayout.CENTER);
         panelPrincipal.add(panelAffichageFin,BorderLayout.SOUTH);
+        
 }
 
     @Override
@@ -110,7 +119,12 @@ public class launch extends JFrame implements ActionListener{
                 Player p = bowling.getPlayers().get(currentPlayer);
                 bowling.getPlayers().get(currentPlayer).incrementNbLancer();
                 p.getScore().addPoint(nbQuillesTombees, p.getNbTour(), p.getNbLancer());
-                listLabelScores.get(currentPlayer).setText("Joueur " + (currentPlayer + 1) + " : " + p.getScore().getScoreTotal());
+                
+                panelTourScore[currentPlayer][p.getNbTour()].setScore(nbQuillesTombees, p.getNbLancer()-1);
+                panelTourScore[currentPlayer][p.getNbTour()].setFinalScore(p.getScore().getScoreTurn(p.getNbTour()));
+
+
+                //listLabelScores.get(currentPlayer).setText("Joueur " + (currentPlayer + 1) + " : " + p.getScore().getScoreTotal());
 
 
                 if(nbQuillesTombees == 10){
@@ -173,8 +187,8 @@ public class launch extends JFrame implements ActionListener{
             JLabel l = new JLabel("Joueur " + nbJoueurs + " : ");
             listLabelScores.add(l);
             panelScores.add(l,nbJoueurs - 1,0);
-
             removePlayer.setEnabled(true);
+            panelTableauScore[nbJoueurs-1].setVisible(true);
 
             if(nbJoueurs > 0){
                 for(int i = 0; i < boutons.size(); i++){
@@ -192,6 +206,7 @@ public class launch extends JFrame implements ActionListener{
             System.out.println("remove player");
             bowling.removePlayer();
             listLabelScores.get(listLabelScores.size() - 1).setVisible(false);
+            panelTableauScore[nbJoueurs-1].setVisible(false);
             panelScores.remove(listLabelScores.get(listLabelScores.size() - 1));
             listLabelScores.remove(listLabelScores.size() - 1);
             nbJoueurs -= 1;
