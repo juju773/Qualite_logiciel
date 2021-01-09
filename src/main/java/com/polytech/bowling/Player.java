@@ -1,7 +1,5 @@
 package com.polytech.bowling;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -25,7 +23,7 @@ public class Player {
 
     public void reset(){
         nbTour = 1;
-        nbLancer = 1;
+        nbLancer = 0;
         nbQuillesTour = 0;
         score = new Score();
     }
@@ -82,19 +80,19 @@ public class Player {
 
             int nbQuillesLancer2 = -1;
             //2e Lancer
-            if (nbQuillesLancer != 10 && nbLancer == 1){
+            if (nbQuillesLancer != Score.MAX_QUILLES && nbLancer == 1){
                 nbQuillesLancer2 = lancer(sc);
                 score.addPoint(nbQuillesLancer2, nbTour, 2);
             }
             //Règle 10e lancer Strike
-            if(nbTour == Score.MAX_TURN && nbQuillesLancer == 10 && nbLancer != 2){
+            if(nbTour == Score.MAX_TURN && nbQuillesLancer == Score.MAX_QUILLES && nbLancer != 2){
                 nbQuillesTour = 0;
                 nbLancer = 0;
                 score.addPoint(lancer(sc), nbTour, 1);
                 score.addPoint(lancer(sc), nbTour, 2);
             }
             //Règle 10e lancer Spare
-            else if(nbTour == Score.MAX_TURN && (nbQuillesLancer + nbQuillesLancer2) == 10 && nbLancer == 2){
+            else if(nbTour == Score.MAX_TURN && (nbQuillesLancer + nbQuillesLancer2) == Score.MAX_QUILLES && nbLancer == 2){
                 nbQuillesTour = 0;
                 nbLancer = 0;
                 score.addPoint(lancer(sc), nbTour, 1);
@@ -117,9 +115,9 @@ public class Player {
         do{
             System.out.print("Nombre de quilles tombées: ");
             nbQuillesLancer = sc.nextInt();
-            if(nbQuillesTour+nbQuillesLancer>Score.MAX_TURN || nbQuillesLancer<0)
-                System.out.println("Erreur: Veuillez renseigner un nombre compris entre 0 et " + (Score.MAX_TURN - nbQuillesTour) );
-        }while (nbQuillesTour+nbQuillesLancer>Score.MAX_TURN || nbQuillesLancer<0);
+            if(nbQuillesTour+nbQuillesLancer>Score.MAX_QUILLES || nbQuillesLancer<0)
+                System.out.println("Erreur: Veuillez renseigner un nombre compris entre 0 et " + (Score.MAX_QUILLES - nbQuillesTour) );
+        }while (nbQuillesTour+nbQuillesLancer>Score.MAX_QUILLES| nbQuillesLancer<0);
         nbLancer++;
         return nbQuillesLancer;
     }

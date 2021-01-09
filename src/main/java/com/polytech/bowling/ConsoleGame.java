@@ -1,7 +1,5 @@
 package com.polytech.bowling;
 
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class ConsoleGame {
