@@ -9,8 +9,6 @@ import java.util.Scanner;
  */
 public class Player {
 
-    public static final int MAX_NB_TURN = 10; //10 Turn minus 1 because index start at 0 
-
     private String nom;
     private int nbLancer;
     private int nbTour;
@@ -65,7 +63,7 @@ public class Player {
         nbTour--;
     }
     public boolean canPlay() {
-        return nbTour <= MAX_NB_TURN;
+        return nbTour <= Score.MAX_TURN;
     }
 
     public Score getScore(){
@@ -77,7 +75,7 @@ public class Player {
      * @param sc
      */
     public void joue(Scanner sc) {
-        if (nbTour <= MAX_NB_TURN) {
+        if (nbTour <= Score.MAX_TURN) {
             int nbQuillesLancer = lancer(sc);
             nbQuillesTour = nbQuillesLancer;
             score.addPoint(nbQuillesLancer, nbTour, 1);
@@ -89,14 +87,14 @@ public class Player {
                 score.addPoint(nbQuillesLancer2, nbTour, 2);
             }
             //Règle 10e lancer Strike
-            if(nbTour == MAX_NB_TURN && nbQuillesLancer == 10 && nbLancer != 2){
+            if(nbTour == Score.MAX_TURN && nbQuillesLancer == 10 && nbLancer != 2){
                 nbQuillesTour = 0;
                 nbLancer = 0;
                 score.addPoint(lancer(sc), nbTour, 1);
                 score.addPoint(lancer(sc), nbTour, 2);
             }
             //Règle 10e lancer Spare
-            else if(nbTour == MAX_NB_TURN && (nbQuillesLancer + nbQuillesLancer2) == 10 && nbLancer == 2){
+            else if(nbTour == Score.MAX_TURN && (nbQuillesLancer + nbQuillesLancer2) == 10 && nbLancer == 2){
                 nbQuillesTour = 0;
                 nbLancer = 0;
                 score.addPoint(lancer(sc), nbTour, 1);
@@ -119,9 +117,9 @@ public class Player {
         do{
             System.out.print("Nombre de quilles tombées: ");
             nbQuillesLancer = sc.nextInt();
-            if(nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0)
-                System.out.println("Erreur: Veuillez renseigner un nombre compris entre 0 et " + (10 - nbQuillesTour) );
-        }while (nbQuillesTour+nbQuillesLancer>10 || nbQuillesLancer<0);
+            if(nbQuillesTour+nbQuillesLancer>Score.MAX_TURN || nbQuillesLancer<0)
+                System.out.println("Erreur: Veuillez renseigner un nombre compris entre 0 et " + (Score.MAX_TURN - nbQuillesTour) );
+        }while (nbQuillesTour+nbQuillesLancer>Score.MAX_TURN || nbQuillesLancer<0);
         nbLancer++;
         return nbQuillesLancer;
     }
