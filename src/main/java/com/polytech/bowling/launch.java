@@ -33,7 +33,7 @@ public class launch extends JFrame implements ActionListener{
     //Tableau des scores
     JPanel panelJoueurScore = new JPanel(new GridLayout(MAX_JOUEUR,1));
     JPanel[] panelTableauScore = new JPanel[MAX_JOUEUR + 1];
-    ScorePanel[][] panelTourScore = new ScorePanel[MAX_JOUEUR][Player.MAX_NB_TURN];
+    ScorePanel[][] panelTourScore = new ScorePanel[MAX_JOUEUR][Score.MAX_TURN];
     JLabel[] finalScores = new JLabel[MAX_JOUEUR];
 
 
@@ -91,7 +91,7 @@ public class launch extends JFrame implements ActionListener{
         panelLabelJoueurCourant.add(labelNBTour,0,0);
 
         //Listeners
-        for(int i = 0; i < 11; i++){
+        for(int i = 0; i < Score.MAX_QUILLES + 1; i++){
             JButton b = new JButton("" + i);
             boutons.add(b);
             b.addActionListener(this);
@@ -109,7 +109,7 @@ public class launch extends JFrame implements ActionListener{
         //Tableau des scores:
         for(int i = 0;  i < MAX_JOUEUR; i++){
             panelTableauScore[i] = new JPanel();
-            for (int j = 0; j < Player.MAX_NB_TURN; j++){
+            for (int j = 0; j < Score.MAX_TURN; j++){
                 panelTourScore[i][j] = new ScorePanel(j+1);
                 panelTourScore[i][j].setBackground(Color.WHITE);
                 panelTourScore[i][j].setForeground(blackColor);
@@ -120,6 +120,7 @@ public class launch extends JFrame implements ActionListener{
             panelTableauScore[i].setBackground(whiteColor);
             panelTableauScore[i].setForeground(blackColor);
             panelTableauScore[i].add(finalScores[i],0,10);
+            panelTableauScore[i].add(finalScores[i], 0, Score.MAX_TURN);
             panelJoueurScore.add(panelTableauScore[i], i, 0);
             
         }
@@ -161,7 +162,7 @@ public class launch extends JFrame implements ActionListener{
                 
                 //Update Scores
                 panelTourScore[currentPlayer][p.getNbTour()-1].setScore(nbQuillesTombees, p.getNbLancer());
-                for(int j = 0; j< Player.MAX_NB_TURN;j++)
+                for(int j = 0; j< Score.MAX_TURN;j++)
                     panelTourScore[currentPlayer][j].setFinalScore(p.getScore().getScoreTurn(j+1));
                 finalScores[currentPlayer].setText("" + p.getScore().getScoreTotal());
 
@@ -178,15 +179,15 @@ public class launch extends JFrame implements ActionListener{
                 }
 
                 //CAS STRIKE
-                if(nbQuillesTombees == 10){
-                    if(p.getNbTour() == 10 && regleT10 == 0 && !hasDoneT10){
+                if(nbQuillesTombees == Score.MAX_QUILLES){
+                    if(p.getNbTour() == Score.MAX_TURN && regleT10 == 0 && !hasDoneT10){
                         regleT10 = 2;
                         return;
                     }
                     p.incrementNbLancer();
                 }
                 //CAS SPARE
-                else if(p.getScore().getScoreTurn(p.getNbTour()) == 10){
+                else if(p.getScore().getScoreTurn(p.getNbTour()) == Score.MAX_QUILLES){
                     regleT10 = 1;
                     resetQuilles();
                     return;
@@ -217,7 +218,7 @@ public class launch extends JFrame implements ActionListener{
                     }
                     hasDoneT10 = false;
                 }
-                if(bowling.getPlayers().get(bowling.getPlayers().size() - 1).getNbTour() > Player.MAX_NB_TURN){
+                if(bowling.getPlayers().get(bowling.getPlayers().size() - 1).getNbTour() > Score.MAX_TURN){
                     //FIN + REJOUER
                     int scoreMax = 0;
                     Player gagnant = null;
@@ -260,7 +261,7 @@ public class launch extends JFrame implements ActionListener{
 
             labelCurrentPlayer.setText("Joueur " + (currentPlayer + 1) + ", à toi de jouer !");
 
-            if(nbJoueurs == 5){
+            if(nbJoueurs == MAX_JOUEUR){
                 addPlayer.setEnabled(false);
             }
         }
@@ -282,7 +283,7 @@ public class launch extends JFrame implements ActionListener{
                     removePlayer.setEnabled(false);
                 }
             }
-            if(nbJoueurs < 5){
+            if(nbJoueurs < MAX_JOUEUR){
                 addPlayer.setEnabled(true);
             }
         }

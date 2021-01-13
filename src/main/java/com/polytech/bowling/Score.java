@@ -3,6 +3,7 @@ package com.polytech.bowling;
 public class Score{
 
     public static final int MAX_TURN = 10;
+    public static final int MAX_QUILLES = 9;
 
     private int[] scores = new int[MAX_TURN];
     private int[] ttls = new int[MAX_TURN];
@@ -30,10 +31,10 @@ public class Score{
             ttls[turn - 1]--;
         }
         scores[turn] += nbQuilles; 
-        if(lancer == 1 && nbQuilles == 10 && turn != 9){
+        if(lancer == 1 && nbQuilles == MAX_QUILLES && turn != MAX_TURN -1){
             strike(turn);
         }
-        else if (lancer == 2 && nbQuilles + nbQuillesTombees[turn] == 10 && turn != 9){
+        else if (lancer == 2 && nbQuilles + nbQuillesTombees[turn] == MAX_QUILLES && turn != MAX_TURN-1){
             spare(turn);
         }
         nbQuillesTombees[turn] += nbQuilles;
