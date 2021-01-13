@@ -4,9 +4,12 @@ package com.polytech.bowling;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Font;
+import javax.swing.border.Border;
 
 public class launch extends JFrame implements ActionListener{
 
@@ -39,12 +42,19 @@ public class launch extends JFrame implements ActionListener{
     int regleT10 = 0;
     boolean hasDoneT10 = false;
 
+    // Colors
+    Color whiteColor = new Color(246,246,255);
+    Color blackColor = new Color(28,29,46);
 
+    // Fonts
+    Font bahnschriftBold = new Font("Bahnschrift", Font.BOLD, 14);
+    Font bahnschrift = new Font("Bahnschrift", Font.PLAIN, 14);
+    Border border = BorderFactory.createLineBorder(whiteColor,40);
 
 
     private int nbJoueurs = 0;
     JLabel labelNbJoueurs = new JLabel("Nombre de joueurs : 0");
-    JLabel labelNBTour = new JLabel("Tour n° : ");
+    JLabel labelNBTour = new JLabel("Tour n° : 1");
 
     JLabel labelCurrentPlayer = new JLabel("");
     int currentPlayer = 0;
@@ -64,13 +74,21 @@ public class launch extends JFrame implements ActionListener{
         setSize(1200,600);
         setVisible(true);
 
+        addPlayer.setBackground(Color.WHITE);
+        addPlayer.setForeground(blackColor);
         panelBoutonAddRemove.add(addPlayer);
+        removePlayer.setBackground(Color.WHITE);
+        removePlayer.setForeground(blackColor);
         panelBoutonAddRemove.add(removePlayer);
+        labelNbJoueurs.setFont(bahnschrift);
         panelBoutonAddRemove.add(labelNbJoueurs);
 
+        labelCurrentPlayer.setFont(bahnschrift);
+        labelCurrentPlayer.setBorder(border);
         panelLabelJoueurCourant.add(labelCurrentPlayer,1,0);
+        labelNBTour.setFont(bahnschriftBold);
+        labelNBTour.setBorder(border);
         panelLabelJoueurCourant.add(labelNBTour,0,0);
-
 
         //Listeners
         for(int i = 0; i < 11; i++){
@@ -84,6 +102,7 @@ public class launch extends JFrame implements ActionListener{
         removePlayer.addActionListener(this);
         removePlayer.setEnabled(false);
 
+        labelScoreFin.setFont(bahnschriftBold);
         panelAffichageFin.add(labelScoreFin);
         
 
@@ -92,18 +111,18 @@ public class launch extends JFrame implements ActionListener{
             panelTableauScore[i] = new JPanel();
             for (int j = 0; j < Player.MAX_NB_TURN; j++){
                 panelTourScore[i][j] = new ScorePanel(j+1);
+                panelTourScore[i][j].setBackground(Color.WHITE);
+                panelTourScore[i][j].setForeground(blackColor);
                 panelTableauScore[i].add(panelTourScore[i][j], 0, j);
                 panelTableauScore[i].setVisible(false);
             }
             finalScores[i] = new JLabel("" + 0);
+            panelTableauScore[i].setBackground(whiteColor);
+            panelTableauScore[i].setForeground(blackColor);
             panelTableauScore[i].add(finalScores[i],0,10);
             panelJoueurScore.add(panelTableauScore[i], i, 0);
             
         }
-        
-
-        
-
 
 
         this.setContentPane(panelPrincipal);
@@ -114,6 +133,12 @@ public class launch extends JFrame implements ActionListener{
         panelPrincipal.add(panelJoueurScore, BorderLayout.CENTER);
         panelPrincipal.add(panelAffichageFin,BorderLayout.SOUTH);
 
+        panelBoutonAddRemove.setBackground(whiteColor);
+        panelBoutonsQuilles.setBackground(whiteColor);
+        panelLabelJoueurCourant.setBackground(whiteColor);
+        panelJoueurScore.setBackground(whiteColor);
+        panelAffichageFin.setBackground(whiteColor);
+
         panelPrincipal.revalidate();
         
 }
@@ -122,6 +147,10 @@ public class launch extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         for(int i = 0; i < boutons.size(); i++){
             if(e.getSource().equals(boutons.get(i))){
+                panelPrincipal.remove(panelBoutonAddRemove);
+                panelPrincipal.remove(panelLabelJoueurCourant);
+                panelPrincipal.add(panelLabelJoueurCourant, BorderLayout.WEST);
+                labelNbJoueurs.setText("");
                 addPlayer.setEnabled(false);
                 removePlayer.setEnabled(false);
 
@@ -129,7 +158,7 @@ public class launch extends JFrame implements ActionListener{
                 Player p = bowling.getPlayers().get(currentPlayer);
                 bowling.getPlayers().get(currentPlayer).incrementNbLancer();
                 p.getScore().addPoint(nbQuillesTombees, p.getNbTour(), p.getNbLancer());
-
+                
                 //Update Scores
                 panelTourScore[currentPlayer][p.getNbTour()-1].setScore(nbQuillesTombees, p.getNbLancer());
                 for(int j = 0; j< Player.MAX_NB_TURN;j++)
@@ -224,6 +253,8 @@ public class launch extends JFrame implements ActionListener{
             if(nbJoueurs > 0){
                 for(int i = 0; i < boutons.size(); i++){
                     boutons.get(i).setEnabled(true);
+                    boutons.get(i).setBackground(Color.WHITE);
+                    boutons.get(i).setForeground(blackColor);
                 }
             }
 
