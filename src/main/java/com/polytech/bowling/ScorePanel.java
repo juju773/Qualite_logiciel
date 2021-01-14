@@ -13,10 +13,14 @@ public class ScorePanel extends JPanel {
 
     int scoreLancer1;
     int scoreLancer2;
-    JPanel turnPanel = new JPanel(new GridLayout(1, 2));
+    JPanel turnPanel;
     JLabel finalScore = new JLabel();
 
     public ScorePanel(int turn) {
+        if(turn == Score.MAX_TURN)
+            turnPanel = new JPanel(new GridLayout(1, 3));
+        else
+            turnPanel = new JPanel(new GridLayout(1, 2));
         this.setLayout(new GridLayout(3, 1));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         JLabel lTurn = new JLabel("" + turn);
@@ -32,20 +36,7 @@ public class ScorePanel extends JPanel {
     }
 
     public void setScore(int score, int lancer){
-        if(lancer == 1)
-            setScoreLancer1(score);
-        if(lancer == 2)
-            setScoreLancer2(score);
-    }
-
-    public void setScoreLancer1(int score){
         this.scoreLancer1 = score;
-        turnPanel.add(new JLabel("" + score), 0 , 0);
+        turnPanel.add(new JLabel("" + score), 0 , lancer - 1);
     }
-    public void setScoreLancer2(int score){
-        this.scoreLancer2 = score;
-        turnPanel.add(new JLabel("" + score), 0 , 1);
-    }
-
-
 }

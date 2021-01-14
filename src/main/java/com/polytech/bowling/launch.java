@@ -119,7 +119,7 @@ public class launch extends JFrame implements ActionListener{
             finalScores[i] = new JLabel("" + 0);
             panelTableauScore[i].setBackground(whiteColor);
             panelTableauScore[i].setForeground(blackColor);
-            panelTableauScore[i].add(finalScores[i],0,10);
+            panelTableauScore[i].add(finalScores[i],0,Score.MAX_TURN);
             panelTableauScore[i].add(finalScores[i], 0, Score.MAX_TURN);
             panelJoueurScore.add(panelTableauScore[i], i, 0);
             
